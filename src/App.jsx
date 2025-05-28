@@ -1,9 +1,10 @@
 import PostComponent from "./components/postComponent.jsx";
+import './app.css'
 function App() {
 
   return (
     <>
-        <PostComponent description="test" imgSrc="./assets/react.svg" />
+        <PostComponent description="test" imgSrc="src/assets/football.png" />
     </>
   )
 }

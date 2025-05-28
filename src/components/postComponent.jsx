@@ -1,6 +1,6 @@
 function PostComponent({description, imgSrc}) {
     return (
-        <div>
+        <div className="post-component">
             <img src={imgSrc} alt={description} />
             <p>{description}</p>
         </div>
