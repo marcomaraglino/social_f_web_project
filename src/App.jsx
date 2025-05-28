@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-        <PostComponent description="test" imgSrc="src/assets/football.png" />
+        <PostComponent lastSeen="1h fa" profileName="Piermenti Sfracellozzi" description="“Vibrazioni del momento, niente di programmato 🌙✨ #mooddelgiorno #solocosebelle”" imgSrc="src/assets/prova.jpg" />
     </>
   )
 }
