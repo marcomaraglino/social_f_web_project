@@ -1,10 +1,12 @@
 import PostComponent from "./components/postComponent.jsx";
+import LoginComponent from "./components/LoginComponent.jsx";
 import './app.css'
+import SignUpComponent from "./components/SignUpComponent.jsx";
 function App() {
 
   return (
     <>
-        <PostComponent lastSeen="1h fa" profileName="Piermenti Sfracellozzi" description="“Vibrazioni del momento, niente di programmato 🌙✨ #mooddelgiorno #solocosebelle”" imgSrc="src/assets/prova.jpg" />
+        <SignUpComponent></SignUpComponent>
     </>
   )
 }
