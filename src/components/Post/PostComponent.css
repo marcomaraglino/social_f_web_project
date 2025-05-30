@@ -1,0 +1,38 @@
+.post-component {
+    border: 0.5px solid #dcdcdc;
+    border-radius: 0.7rem;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-evenly;
+    width: 70%;
+    max-width: 600px;
+}
+.post-component .header {
+    padding: 1rem;
+    flex-direction: column;
+    display: flex;
+    align-items: start;
+    width: 100%;
+}
+.post-component .header .last-seen {
+    color: gray;
+    font-size: 0.8rem;
+}
+.post-component .header .profile-name {
+    font-size: 1rem;
+}
+.post-component .description {
+    padding: 1rem;
+    text-align: left;
+}
+.post-component img{
+    aspect-ratio: 1/1;
+    width: 100%;
+    object-fit: cover;
+}
+.post-component p {
+    margin: 0;
+}
