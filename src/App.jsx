@@ -10,6 +10,7 @@ function App() {
         <Navbar></Navbar>
         <LoginComponent/>
         <SignUpComponent/>
+        <div></div>
     </>
   )
 }
