@@ -1,7 +1,7 @@
-import "./PostComponent.css"
+import "./Post.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function PostComponent({description, imgSrc, profileName = "Default", lastSeen}) {
+function Post({description, imgSrc, profileName = "Default", lastSeen}) {
     return (
         <div className="post-component">
             <div className="header">
@@ -16,4 +16,4 @@ function PostComponent({description, imgSrc, profileName = "Default", lastSeen})
     )
 }
 
-export default PostComponent;
+export default Post;

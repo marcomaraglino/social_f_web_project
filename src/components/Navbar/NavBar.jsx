@@ -1,8 +1,9 @@
-import "./NavBarComponent.css"
+import "./NavBar.css"
 import {Container, Navbar, Nav} from "react-bootstrap";
 import {Home, PlusSquare, User} from "lucide-react";
+import {Outlet} from "react-router-dom";
 
-function NavbarComponent() {
+function NavBar() {
     return (
         <Navbar className="navbar" collapseOnSelect sticky="top" variant="light">
             <Container>
@@ -16,4 +17,4 @@ function NavbarComponent() {
         </Navbar>
     )
 }
-export default NavbarComponent;
+export default NavBar;

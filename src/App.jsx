@@ -1,9 +1,10 @@
-import PostComponent from "./components/Post/postComponent.jsx";
-import LoginComponent from "./components/Login/LoginComponent.jsx";
-import Navbar from "./components/Navbar/navbarComponent.jsx";
-import SignUpComponent from "./components/Login/SignUpComponent.jsx";
+import Post from "./components/Post/Post.jsx";
+import Login from "./components/Login/Login.jsx";
+import Navbar from "./components/Navbar/NavBar.jsx";
+import SignUp from "./components/Login/SignUp.jsx";
 import './app.css'
 import {BrowserRouter as Router,Routes, Route} from "react-router-dom";
+import Layout from "./views/Layout.jsx";
 
 function App() {
 
@@ -11,8 +12,10 @@ function App() {
 
       <Router>
           <Routes>
-              <Route path='/signup' element={<SignUpComponent />}/>
-              <Route path='/signin' element={<LoginComponent />}/>
+              <Route element={<Layout/>}>
+                  <Route path='/signup' element={<SignUp />}/>
+                  <Route path='/signin' element={<Login />}/>
+              </Route>
           </Routes>
       </Router>
 

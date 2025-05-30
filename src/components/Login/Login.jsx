@@ -1,6 +1,6 @@
 import './Login.css'
 import {Link} from 'react-router-dom'
-    function LoginComponent(){
+    function Login(){
          return (
              <div className='loginContainer'>
                 <div className='loginBox'>
@@ -19,4 +19,4 @@ import {Link} from 'react-router-dom'
          )
 
     }
-    export default LoginComponent;
+    export default Login;

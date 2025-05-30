@@ -1,7 +1,7 @@
 import './Login.css'
 import {Link} from "react-router-dom";
 
-function SignUpComponent(){
+function SignUp(){
     return(
         <div className='loginContainer'>
             <div className='loginBox'>
@@ -22,4 +22,4 @@ function SignUpComponent(){
         </div>
     )
 }
-export default SignUpComponent;
+export default SignUp;
