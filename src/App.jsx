@@ -1,17 +1,21 @@
 import PostComponent from "./components/Post/postComponent.jsx";
-import LoginComponent from "./components/LoginComponent.jsx";
-import './app.css'
+import LoginComponent from "./components/Login/LoginComponent.jsx";
 import Navbar from "./components/Navbar/navbarComponent.jsx";
-import SignUpComponent from "./components/SignUpComponent.jsx";
+import SignUpComponent from "./components/Login/SignUpComponent.jsx";
+import './app.css'
+import {BrowserRouter as Router,Routes, Route} from "react-router-dom";
+
 function App() {
 
   return (
-    <>
-        <Navbar></Navbar>
-        <LoginComponent/>
-        <SignUpComponent/>
-        <div></div>
-    </>
+
+      <Router>
+          <Routes>
+              <Route path='/signup' element={<SignUpComponent />}/>
+              <Route path='/signin' element={<LoginComponent />}/>
+          </Routes>
+      </Router>
+
   )
 }
 

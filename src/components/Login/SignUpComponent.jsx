@@ -1,3 +1,6 @@
+import './Login.css'
+import {Link} from "react-router-dom";
+
 function SignUpComponent(){
     return(
         <div className='loginContainer'>
@@ -11,9 +14,9 @@ function SignUpComponent(){
                     <input type="password" placeholder='Pasword' required/>
                     <button>Sign Up</button>
                 </form>
-                <a href="#">
-                    Already have an acocunt?<span>Sign In</span>
-                </a>
+                <Link to='/signin'>
+                    Already have an account <span>Sign In</span>
+                </Link>
 
             </div>
         </div>

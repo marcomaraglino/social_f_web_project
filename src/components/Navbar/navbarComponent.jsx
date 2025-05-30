@@ -6,7 +6,7 @@ function NavbarComponent() {
     return (
         <Navbar className="navbar" collapseOnSelect sticky="top" variant="light">
             <Container>
-                <Navbar.Brand href="#home">Instagram</Navbar.Brand>
+                <Navbar.Brand className='nomeBrand' href="#home">Social Network</Navbar.Brand>
                 <Nav className="ms-auto gap-4">
                     <Nav.Link href="#home"><Home/></Nav.Link>
                     <Nav.Link href="#createpost"><PlusSquare/></Nav.Link>
