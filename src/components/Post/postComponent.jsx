@@ -1,4 +1,4 @@
-import {Button} from "react-bootstrap";
+import "./PostComponent.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function PostComponent({description, imgSrc, profileName = "Default", lastSeen}) {
