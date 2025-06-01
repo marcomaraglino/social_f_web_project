@@ -1,6 +1,6 @@
 import "./NavBar.css"
 import {Container, Navbar, Nav} from "react-bootstrap";
-import {Home, MessageCircle, PlusSquare, User} from "lucide-react";
+import {Home, MessageCircle, Plus, User} from "lucide-react";
 import {Outlet} from "react-router-dom";
 
 function NavBar() {
@@ -12,7 +12,7 @@ function NavBar() {
                         Home
                     </Nav.Link>
                     <Nav.Link className="nav-link" href="#createpost">
-                        <PlusSquare size={20} className="me-4"/>
+                        <Plus size={20} className="me-4"/>
                         Crea
                     </Nav.Link>
                     <Nav.Link className="nav-link" href="#chat">

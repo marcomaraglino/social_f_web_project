@@ -4,6 +4,9 @@
     font-family: "Poppins", sans-serif;
   text-align: center;
 }
+.main-content {
+    margin-left: 256px;
+}
 *{
     box-sizing: border-box;
     margin:0;

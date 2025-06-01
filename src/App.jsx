@@ -5,6 +5,7 @@ import SignUp from "./components/Login/SignUp.jsx";
 import './app.css'
 import {BrowserRouter as Router,Routes, Route} from "react-router-dom";
 import Layout from "./views/Layout.jsx";
+import CreateEvent from "./views/CreateEvent/CreateEvent.jsx";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <Router>
           <Routes>
               <Route element={<Layout/>}>
+                  <Route path='/' element={<CreateEvent/>}/>
                   <Route path='/signup' element={<SignUp />}/>
                   <Route path='/signin' element={<Login />}/>
               </Route>

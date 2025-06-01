@@ -3,8 +3,12 @@ import {Outlet} from "react-router-dom";
 function Layout() {
     return (
         <>
-        <Navbar/>
-        <Outlet/>
+            <div className='d-flex flex-column'>
+                <Navbar/>
+                <div className="main-content flex-fill">
+                    <Outlet/>
+                </div>
+            </div>
         </>
     )
 }
