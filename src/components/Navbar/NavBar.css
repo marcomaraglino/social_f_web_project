@@ -28,6 +28,6 @@
     color: #374151;
 }
 .nav-link.active {
-    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    background: var(--button-color);
     color: white !important;
 }
