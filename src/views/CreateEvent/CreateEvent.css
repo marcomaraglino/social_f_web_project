@@ -4,3 +4,12 @@ input[type=text] {
 textarea {
     font-size: 14px;
 }
+.btn-gradient {
+    background: var(--button-color);
+    color: white;
+}
+
+.btn-gradient:hover {
+    background: var(--button-hover);
+    color: white;
+}

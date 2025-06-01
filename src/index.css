@@ -1,5 +1,6 @@
 :root {
   --button-color: linear-gradient(135deg, #3b82f6, #06b6d4);
+  --button-hover: linear-gradient(135deg, #2563eb, #0891b2);
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,3 +13,4 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
