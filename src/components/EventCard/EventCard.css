@@ -1,0 +1,60 @@
+.cardContainer{
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+.infoCard{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    gap: 1rem;
+
+}
+.infoCard h5{
+    text-align: start;
+    font-weight: bold;
+}
+.infoCard p{
+    text-align: start;
+    color: #7a7a7a;
+}
+.otherInfo{
+    display: flex;
+    flex-direction: column;
+
+}
+.otherInfo p{
+    text-align: start;
+}
+
+.statsPartecipanti{
+
+    background-color: #dddddd;
+    border-radius:10px;
+    height: 8px;
+}
+.otherInfo button{
+    border-radius: 10px;
+}
+.Activity-sport{
+    background-color: #c1ffc1;
+    color: #00a500;
+}
+.Activity-tech{
+    background-color: #aaddfd;
+    color: #005ed1;
+}
+.Activity-gaming{
+    background-color: #e4c8ff;
+    color: blueviolet;
+}
+.Activity-social{
+    background-color: #ffb1b1;
+    color: #c50000;
+}

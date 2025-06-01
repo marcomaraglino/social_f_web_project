@@ -1,0 +1,22 @@
+.cardContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cards{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 10rem;
+
+}
+.cards >*{
+    flex:calc(50% - 0.5rem);
+}
+.infoContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+}
+

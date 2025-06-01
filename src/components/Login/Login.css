@@ -24,6 +24,7 @@
 .loginBox h1{
     font-family: Poppins;
     font-weight: bold;
+    color: #3b5af6;
 }
 .loginBox p{
     font-family: Poppins;
@@ -46,9 +47,8 @@ input{
 }
 button{
     padding: 0.75rem;
-    background-color:#0f172a ;
+    background:var(--button-color) ;
     color:white;
-    font-family: Poppins;
     font-weight: bold;
     border:none;
     border-radius: 6px;
@@ -56,11 +56,10 @@ button{
     transition:background 0.6s ease;
 }
 button:hover{
-    background-color:#1e293b ;
+    background-color:dodgerblue;
 }
 
 .loginBox a{
-    font-family: Poppins;
     margin-top:20px;
 
 
