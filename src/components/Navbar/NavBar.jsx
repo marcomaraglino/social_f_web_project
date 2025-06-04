@@ -2,6 +2,7 @@ import "./NavBar.css"
 import {Container, Navbar, Nav} from "react-bootstrap";
 import {Home, MessageCircle, Plus, User} from "lucide-react";
 import {Link, useLocation} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 
 function NavBar() {
 
@@ -38,7 +39,7 @@ function NavBar() {
                         Home
                     </Nav.Link>
                     <Nav.Link className="nav-link" href="#createpost">
-                        <Plus size={20} className="me-4"/>
+                        <PlusSquare size={20} className="me-4"/>
                         Crea
                     </Nav.Link>
                     <Nav.Link className="nav-link" href="#chat">

@@ -5,7 +5,7 @@ function SignUp(){
     return(
         <div className='loginContainer'>
             <div className='loginBox'>
-                <h1>Social Network</h1>
+                <h1>Nexio</h1>
                 <p>Create a new account to get started.</p>
                 <form>
                     <input type="full name" placeholder='Full Name' required/>
