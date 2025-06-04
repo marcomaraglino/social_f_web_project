@@ -42,8 +42,8 @@ function CreateEvent () {
                 Create new event
             </h2>
         </div>
-            <div className="card shadow rounded-2">
-                <div className="card-header text-dark mb-0">
+            <div className="card border-0 shadow rounded-2">
+                <div className="card-header py-3 text-dark mb-0">
                     <h5 className="card-title text-dark mb-0">Event details</h5>
                 </div>
                 <div className="card-body">
@@ -93,6 +93,7 @@ function CreateEvent () {
                             </select>
                         </div>
 
+
                         {/* Date and Time */}
                         <div className="row mb-4">
                             <div className="col-6">
@@ -105,6 +106,7 @@ function CreateEvent () {
                                 id="date"
                                 onChange={(e) => handleInputChange('date', e.target.value)}
                                 value={formData.date}
+                                min={new Date().toISOString().split('T')[0]}
                                 required
                                 style={{fontSize: '14px'}}
 
@@ -131,9 +133,7 @@ function CreateEvent () {
                                 <Globe size={20} className="text-info me-3"/>
                                 <div>
                                     <div className="fw-medium text-dark small">Online Event</div>
-                                    <div className="text-muted" style={{fontSize: '12px'}}>Toggle if this is a virtual
-                                        event
-                                    </div>
+                                    <div className="text-muted" style={{fontSize: '12px'}}>Toggle if this is a virtual event</div>
                                 </div>
                             </div>
                             <div className="form-check form-switch">
@@ -167,9 +167,11 @@ function CreateEvent () {
                                 Maximum Participants *
                             </label>
                             <input
-                                type="text"
+                                type="number"
                                 onChange={(e) => handleInputChange('maxParticipants', e.target.value)}
                                 value={formData.maxParticipants}
+                                min="2"
+                                max="100"
                                 className="form-control rounded-3"
                                 id="maxParticipants"
                                 placeholder="How many people can join?"

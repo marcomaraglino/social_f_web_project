@@ -3,6 +3,7 @@ input[type=text] {
 }
 textarea {
     font-size: 14px;
+    resize: none;
 }
 .btn-gradient {
     background: var(--button-color);
@@ -13,3 +14,6 @@ textarea {
     background: var(--button-hover);
     color: white;
 }
+.form-switch .form-check-input {
+    width: 3em;
+}q
