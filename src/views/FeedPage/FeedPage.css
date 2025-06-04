@@ -1,22 +1,43 @@
-.cardContainer{
+.event-container{
+    padding: 6rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.cards{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 1rem;
-    padding: 10rem;
-
 }
-.cards >*{
+.event-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+.card-grid{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+.cards-grid >*{
     flex:calc(50% - 0.5rem);
 }
-.infoContainer{
+.filters{
     display: flex;
     flex-direction: row;
-    gap: 5rem;
+    align-items: start;
+    gap:0.5rem;
 }
+.filter{
+    font-weight: normal;
+}
+.noselectedFilter{
+    background: white;
+    border:1px solid grey;
+    color:grey;
+    font-weight: normal;
+}
+.noselectedFilter:hover{
+    background: grey;
+    color:white;
+}
+
+
 
