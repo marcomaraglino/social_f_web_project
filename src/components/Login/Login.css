@@ -45,7 +45,7 @@ input{
     background-color: white;
     color:black;
 }
-button{
+.loginBox button{
     padding: 0.75rem;
     background:var(--button-color) ;
     color:white;
@@ -55,7 +55,7 @@ button{
     cursor:pointer;
     transition:background 0.6s ease;
 }
-button:hover{
+.loginBox button:hover{
     background-color:dodgerblue;
 }
 

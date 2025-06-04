@@ -25,8 +25,14 @@
     align-items: start;
     gap:0.5rem;
 }
+.create-event{
+    background: var(--button-color);
+    border: 1px solid transparent;
+}
 .filter{
     font-weight: normal;
+    background:var(--button-color);
+    border:1px solid transparent;
 }
 .noselectedFilter{
     background: white;

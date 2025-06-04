@@ -12,7 +12,6 @@ import {FeedPage} from "./views/FeedPage/FeedPage.jsx";
 function App() {
 
   return (
-      <FeedPage></FeedPage>,
       <Router>
           <Routes>
               <Route element={<Layout/>}>
