@@ -1,13 +1,40 @@
 import "./NavBar.css"
 import {Container, Navbar, Nav} from "react-bootstrap";
-import {Home, MessageCircle, PlusSquare, User} from "lucide-react";
+import {Home, MessageCircle, Plus, User} from "lucide-react";
+import {Link, useLocation} from "react-router-dom";
 import {Outlet} from "react-router-dom";
 
 function NavBar() {
+
+    const location = useLocation();
+    const menuItems = [
+        { icon: Home, label: 'Events', path: '/' },
+        { icon: Plus, label: 'Create', path: '/create-event' },
+        { icon: MessageCircle, label: 'Chats', path: '/chats' },
+        { icon: User, label: 'Profile', path: '/profile' }
+    ];
+
     return (
-        <Navbar className="navbar p-3" collapseOnSelect variant="light">
-                <Nav className="align-items-center flex-column flex-fill">
-                    <Nav.Link className="nav-link" href="#home">
+        <div className="sidebar d-none d-md-flex flex-column p-4">
+                <nav className="align-items-center flex-column flex-fill">
+                    {menuItems.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = location.pathname === item.path;
+
+                        return (
+                            <Link
+                                key={item.path}
+                                to={item.path}
+                                className={`d-flex align-items-center text-decoration-none nav-link ${
+                                    isActive ? 'active' : ''
+                                }`}
+                            >
+                                <Icon className="me-3" size={30}/>
+                                {item.label}
+                            </Link>
+                        );
+                    })}
+                    {/* <Nav.Link className="nav-link" href="#home">
                         <Home size={20} className="me-4"/>
                         Home
                     </Nav.Link>
@@ -22,9 +49,9 @@ function NavBar() {
                     <Nav.Link className="nav-link" href="#profile">
                     <User size={20} className="me-4"/>
                     Profile
-                </Nav.Link>
-                </Nav>
-        </Navbar>
+                </Nav.Link>*/}
+                </nav>
+        </div>
     )
 }
 export default NavBar;

@@ -8,11 +8,6 @@ import Layout from "./views/Layout.jsx";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <BrowserRouter>
-          <Routes>
-              <Route element={<App/>}/>
-          </Routes>
-      </BrowserRouter>
     <App />
   </StrictMode>,
 )

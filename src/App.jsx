@@ -16,11 +16,10 @@ function App() {
       <Router>
           <Routes>
               <Route element={<Layout/>}>
-                   <Route path='/' element={<CreateEvent/>}/>
-                   <Route path='home' element={<FeedPage/>}/>
+                   <Route path='/' element={<FeedPage/>}/>
+                   <Route path='/create-event' element={<CreateEvent/>}/>
                    <Route path='/signup' element={<SignUp />}/>
                   <Route path='/signin' element={<Login />}/>
-
               </Route>
           </Routes>
       </Router>
