@@ -6,6 +6,7 @@ const events=[
     {
         id:1,
         activity:'Sport',
+        online:true,
         nome:'Progetto',
         descrizione:'Progetto di fondamenti web',
         data:'Sat, Jun 1 at 18:00',
@@ -16,6 +17,7 @@ const events=[
     {
         id:2,
         activity:'Sport',
+        online:true,
         nome:'Progetto',
         descrizione:'Progetto di fondamenti web',
         data:'Sat, Jun 1 at 18:00',
@@ -26,6 +28,7 @@ const events=[
     {
         id:3,
         activity:'Gaming',
+        online:true,
         nome:'Progetto',
         descrizione:'Progetto di fondamenti web',
         data:'Sat, Jun 1 at 18:00',
@@ -36,6 +39,7 @@ const events=[
     {
         id:4,
         activity:'Social',
+        online:false,
         nome:'Progetto',
         descrizione:'Progetto di fondamenti web',
         data:'Sat, Jun 1 at 18:00',
@@ -80,6 +84,7 @@ export function FeedPage(){
 
                             <EventCard activity={events.activity}
                                        nome={events.nome}
+                                       online={events.online}
                                        descrizione={events.descrizione}
                                        data={events.data}
                                        luogo={events.luogo}

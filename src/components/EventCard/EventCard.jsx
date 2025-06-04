@@ -1,5 +1,5 @@
 import './EventCard.css'
-import {Calendar, Users, MapPin} from 'lucide-react'
+import {Calendar, Users, MapPin, Globe} from 'lucide-react'
 export function EventCard(props){
     const getActivityClass = (activity) => {
         switch (activity){
@@ -10,12 +10,24 @@ export function EventCard(props){
 
         }
     }
+    const isOnline = (online) => online === true;
     return(
             <div className='infoCard shadow'>
-                <div className="d-flex  justify-content-between">
+                <div className="d-flex justify-content-between">
                     <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.activity)}`}>
                         {props.activity}
                     </span>
+
+                        <span className={`d-flex align-items-center gap-1 ${isOnline(props.online)
+                            ?'text-info fs-6'
+                            :'text-white'
+                        }`}>
+                            <Globe size={15}  className={`${isOnline(props.online)
+                                ?'text-info'
+                                :'text-white'
+                            }`}/>
+                            Online
+                        </span>
                 </div>
                 <h5>{props.nome}</h5>
                 <p>{props.descrizione}</p>
