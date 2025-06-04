@@ -48,7 +48,7 @@ export function EventCard(props){
                 <div className='statsPartecipanti'>
                     <div className='fillStats'></div>
                 </div>
-                <button className='details px-4 py-3'>View Details</button>
+                <button className='btn btn-gradient sdetails px-4 py-3'>View Details</button>
             </div>
 
     )

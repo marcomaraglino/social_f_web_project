@@ -1,5 +1,4 @@
 .event-container{
-    padding: 6rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -14,10 +13,9 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
 }
 .cards-grid >*{
-    flex:calc(50% - 0.5rem);
 }
 .filters{
     display: flex;
@@ -32,7 +30,7 @@
 .filter{
     font-weight: normal;
     background:var(--button-color);
-    border:1px solid transparent;
+    border: 1px solid transparent;
 }
 .noselectedFilter{
     background: white;

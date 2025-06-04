@@ -56,20 +56,20 @@ export function FeedPage(){
     const eventiFiltrati= selectedCategory==='All'
     ? events : events.filter((event)=>event.activity === selectedCategory)
     return(
-        <div className='event-container'>
+        <div className='container event-container'>
             <div className='event-header'>
                 <div>
-                    <h2>Discover Events</h2>
+                    <h2 className="h2 fw-bold text-dark mb-0">Discover Events</h2>
                     <p>Find amazing activities near you</p>
                 </div>
 
-                <Link to='create-event'>
-                    <button className={'create-event rounded-pill px-4 py-2 text-nowrap font-normal'}>+ Create Event</button>
+                <Link to='/create-event'>
+                    <button className={'btn btn-gradient create-event rounded-pill px-4 py-2 text-nowrap font-normal'}>+ Create Event</button>
                 </Link>
             </div>
             <div className='filters'>
                 {categories.map((category)=>(
-                    <button key={category} className={`rounded-pill px-4 py-2 text-nowrap ${
+                    <button key={category} className={`d-none d-sm-block btn btn-gradient rounded-pill px-4 py-2 text-nowrap ${
                         selectedCategory===category
                         ? "filter"
                         : "noselectedFilter"    

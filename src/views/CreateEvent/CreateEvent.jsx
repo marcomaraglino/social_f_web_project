@@ -31,7 +31,7 @@ function CreateEvent () {
     }
 
     return (
-        <div style={{maxWidth: '768px'}} className="container p-4 text-start">
+        <div className="container text-start">
         <div className="d-flex align-items-center gap-3 mb-4" style={{maxWidth: '768px'}}>
             <Link to='/'>
                 <button style={{width: '40px', height: '40px'}} className="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center">
