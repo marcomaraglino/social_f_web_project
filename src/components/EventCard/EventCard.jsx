@@ -37,7 +37,11 @@ export function EventCard(props){
                         <p>{props.data}</p>
                     </div>
                     <div className={'d-flex gap-2'}>
-                        <MapPin size={20} color='#7a7a7a' />
+                        <div className={'d-flex gap-2'}>
+                             {isOnline(props.online)
+                            ?(<Globe size={20} color='grey'/>)
+                            :(<MapPin size={20} color='grey' />)}
+                        </div>
                         <p>{props.luogo}</p>
                     </div>
                     <div className={'d-flex gap-2'}>
