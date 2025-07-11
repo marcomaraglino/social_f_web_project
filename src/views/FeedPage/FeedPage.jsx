@@ -83,6 +83,7 @@ export function FeedPage(){
                     {eventiFiltrati.map((events)=>(
 
                             <EventCard activity={events.activity}
+                                        key={events.id}
                                        nome={events.nome}
                                        online={events.online}
                                        descrizione={events.descrizione}

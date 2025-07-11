@@ -4,7 +4,7 @@ import {Home, MessageCircle, Plus, User} from "lucide-react";
 import {Link, useLocation} from "react-router-dom";
 import {Outlet} from "react-router-dom";
 
-function NavBar() {
+function NavBar({user, onLogout}) {
 
     const location = useLocation();
     const menuItems = [
@@ -51,6 +51,15 @@ function NavBar() {
                     Profile
                 </Nav.Link>*/}
                 </nav>
+            <div className="user-details mt-auto">
+                {/* !!!!!!! CAMBIARE VISUALIZZAZIONE UTENTE*/}
+                {user && (
+                    <div className="d-flex align-items-center">
+                        <span className="me-2">Ciao, {user.username}!</span>
+                        <button className="btn btn-outline-secondary" onClick={onLogout}>Logout</button>
+                    </div>
+                )}
+            </div>
         </div>
     )
 }
