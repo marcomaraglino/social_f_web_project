@@ -1,0 +1,23 @@
+{
+  "name": "John",
+  "surname": "Doe",
+  "email": "john.doe@example.com",
+  "subscriptionDate": "Jan 15",
+  "interests": ["Sports", "Gaming", "Tech"],
+  "joinedEvents": [
+    {
+      "title": "5-a-side Football Match",
+      "date": "Jun 1",
+      "location": "Central Park, NYC",
+      "status": "upcoming"
+    }
+  ],
+  "createdEvents": [
+    {
+      "title": "React Workshop",
+      "date": "Jun 10",
+      "location": "Online",
+      "status": "upcoming"
+    }
+  ]
+}
