@@ -6,23 +6,24 @@ import './app.css'
 import {BrowserRouter as Router,Routes, Route} from "react-router-dom";
 import Layout from "./views/Layout.jsx";
 import CreateEvent from "./views/CreateEvent/CreateEvent.jsx";
-import {EventCard} from "./components/EventCard/EventCard.jsx";
-import {FeedPage} from "./views/FeedPage/FeedPage.jsx";
+import UserPage from "./components/Profile/UserPage.jsx";
 
 function App() {
 
   return (
-      <FeedPage></FeedPage>,
+
       <Router>
           <Routes>
               <Route element={<Layout/>}>
-                   <Route path='/' element={<FeedPage/>}/>
-                   <Route path='/create-event' element={<CreateEvent/>}/>
-                   <Route path='/signup' element={<SignUp />}/>
+                  <Route path='/' element={<CreateEvent/>}/> //Feed
+                  <Route path='/create-event' element={<CreateEvent/>}/>
+                  <Route path='/signup' element={<SignUp />}/>
                   <Route path='/signin' element={<Login />}/>
+                  <Route path="/profile" element={<UserPage />} />
               </Route>
           </Routes>
       </Router>
+
   )
 }
 
