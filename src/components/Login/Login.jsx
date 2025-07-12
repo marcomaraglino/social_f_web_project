@@ -13,7 +13,6 @@ import {useState} from "react";
             try {
                 setError(null); // reset eventuali errori precedenti
                 const data = await onSubmitForm({email, password });
-                console.log("Login avvenuto con successo:", data);
                 navigate('/')
             } catch (error) {
                 console.error("Errore durante il login :", error);

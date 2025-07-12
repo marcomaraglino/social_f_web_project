@@ -11,6 +11,7 @@ import {FeedPage} from "./views/FeedPage/FeedPage.jsx";
 import React, {useEffect} from "react";
 import Profile from "./components/Profile/Profile.jsx";
 import UserPage from "./components/Profile/UserPage.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
 
 function App() {
 
@@ -68,9 +69,11 @@ function App() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include', // IMPORTANTE
                 body: JSON.stringify(credentials),
             });
             const data = await response.json();
+            console.log(data.user)
 
             if (!response.ok) {
                 throw new Error(data?.message || `Errore autenticazione: ${response.status}`);
@@ -103,12 +106,16 @@ function App() {
   return (
       <Router>
           <Routes>
-              <Route element={<Layout user={currentUser} onLogout={handleLogout}/>}>
-                   <Route path='/' element={<FeedPage/>}/>
-                   <Route path='/create-event' element={<CreateEvent/>}/>
-                   <Route path='/signup' element={<SignUp onSubmitForm={handleRegister} />}/>
-                   <Route path='/profile' element={<UserPage  />}/>
+              <Route element={<Layout onLogout={handleLogout}/>}>
+                  {/* Rotte pubbliche */}
+                  <Route path='/' element={<FeedPage/>}/>
+                  <Route path='/signup' element={<SignUp onSubmitForm={handleRegister} />}/>
                   <Route path='/signin' element={<Login onSubmitForm={handleLogin} />}/>
+                  {/* Rotte protette */}
+                  <Route element={<PrivateRoute user={currentUser} />}>
+                      <Route path='/profile' element={<UserPage  />}/>
+                      <Route path='/create-event' element={<CreateEvent/>}/>
+                  </Route>
               </Route>
           </Routes>
       </Router>

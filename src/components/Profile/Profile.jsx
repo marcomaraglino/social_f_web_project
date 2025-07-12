@@ -1,25 +1,47 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {refreshAccessToken} from '../../utils/auth'; // Assicurati di avere questa funzione per rinnovare il token
 
-const UserProfile = ({
-                         name,
-                         surname,
-                         email,
-                         subscriptionDate,
-                         joinedEvents,
-                         createdEvents,
-                         interests: initialInterests
-                     }) => {
+const UserProfile = () => {
     const [activeTab, setActiveTab] = useState('joined');
-    const [interests, setInterests] = useState(initialInterests || []);
-    const [newInterest, setNewInterest] = useState('');
+    const [profileData, setProfileData] = useState({});
 
-    const handleAddInterest = () => {
-        if (newInterest.trim() !== '' && !interests.includes(newInterest.trim())) {
-            setInterests([...interests, newInterest.trim()]);
-            setNewInterest('');
-        }
-    };
+    useEffect(() => {
+        const fetchProfileData = async () => {
+            try {
+                let accessToken = localStorage.getItem('accessToken');
+                let response = await fetch(import.meta.env.VITE_API_BASE_URL + '/profile', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                    },
+                });
+                console.log("Response:", response.status);
+
+                // Se scaduto, prova a rinnovarlo
+                if (response.status === 401 || response.status === 403) {
+                    accessToken = await refreshAccessToken();
+                    console.log("Token Refreshato");
+
+                    // Ritenta la richiesta con il nuovo token
+                    response = await fetch(import.meta.env.VITE_API_BASE_URL + '/profile/', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                        },
+                    });
+                }
+
+                if (!response.ok) throw new Error("Failed to fetch profile data");
+
+                const data = await response.json();
+                setProfileData(data);
+            } catch (error) {
+                console.error('Error fetching profile data:', error);
+            }
+        };
+        fetchProfileData();
+    }, []);
 
     const renderEventStatus = (status) => {
         const styles = {
@@ -31,33 +53,24 @@ const UserProfile = ({
 
     return (
         <div className="container my-4">
-            <div className="bg-white shadow rounded p-4 d-flex justify-content-between align-items-start">
-                <div className="d-flex">
-                    <div
-                        className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold fs-4"
-                        style={{
-                            width: '64px',
-                            height: '64px',
-                            background: 'linear-gradient(135deg, #60a5fa, #3b82f6)',
-                        }}
-                    >
-                        {name[0]}{surname[0]}
-                    </div>
-                    <div className="ms-0 d-flex flex-column justify-content-start">
-                        <h1 className="fs-4 fw-bold mb-0">{name} {surname}</h1>
-                        <p className="text-secondary mb-1">{email}</p>
-                        <p className="text-muted small mb-2">
-                            Joined {subscriptionDate} • {joinedEvents.length} events joined • {createdEvents.length} events created
-                        </p>
+            <div className="bg-white shadow rounded p-4 d-flex justify-content-between align-items-center">
+                <div className="d-flex align-items-center">
+                    <div className="px-5 justify-content-center d-flex flex-column">
+                        <h1 className="fs-4 text-primary text-start fw-bold mb-0">{profileData.username}</h1>
+                        <p className="m-0 text-secondary">{profileData.email}</p>
+                        {/*<p className="text-muted small mb-2">
+                            *Joined {subscriptionDate} • {joinedEvents.length} events joined • {createdEvents.length} events created
+                        </p>*/}
 
-                        {/* Interests badges */}
+                        {/* Interests badges
                         <div className="d-flex gap-2 flex-wrap small mb-2">
                             {interests.map((interest, i) => (
                                 <span key={i} className="badge bg-light text-dark">{interest}</span>
                             ))}
                         </div>
+                        */}
 
-                        {/* Add new interest input */}
+                        {/* Add new interest input
                         <div className="d-flex gap-2">
                             <input
                                 type="text"
@@ -70,6 +83,7 @@ const UserProfile = ({
                                 Add
                             </button>
                         </div>
+                        */}
                     </div>
                 </div>
                 <button className="btn btn-primary">
@@ -85,17 +99,17 @@ const UserProfile = ({
                         className={`btn ${activeTab === 'joined' ? 'btn-primary' : 'btn-outline-secondary'}`}
                         onClick={() => setActiveTab('joined')}
                     >
-                        Events Joined ({joinedEvents.length})
+                        {/*Events Joined ({joinedEvents.length})*/}
                     </button>
                     <button
                         className={`btn ${activeTab === 'created' ? 'btn-primary' : 'btn-outline-secondary'}`}
                         onClick={() => setActiveTab('created')}
                     >
-                        Events Created ({createdEvents.length})
+                        {/*Events Created ({createdEvents.length})*/}
                     </button>
                 </div>
 
-                {/* Events List */}
+                {/* Events List
                 <div className="list-group">
                     {(activeTab === 'joined' ? joinedEvents : createdEvents).map((event, index) => (
                         <div
@@ -113,10 +127,10 @@ const UserProfile = ({
                         </div>
                     ))}
 
-                    {(activeTab === 'created' && createdEvents.length === 0) && (
+                    {/*{(activeTab === 'created' && createdEvents.length === 0) && (
                         <p className="text-muted small">No events created yet.</p>
                     )}
-                </div>
+                </div> */}
             </div>
         </div>
     );

@@ -1,11 +1,11 @@
 import Navbar from '../components/NavBar/NavBar.jsx';
 import {Outlet} from "react-router-dom";
 import BottomBar from "../components/Navbar/BottomBar.jsx";
-function Layout({user, onLogout}) {
+function Layout({onLogout}) {
     return (
         <>
             <div className='d-flex flex-column'>
-                <Navbar user={user} onLogout={onLogout}/>
+                <Navbar onLogout={onLogout}/>
                 <BottomBar/>
                 <div className="main-content flex-fill">
                     <Outlet/>
