@@ -9,6 +9,8 @@ import CreateEvent from "./views/CreateEvent/CreateEvent.jsx";
 import {EventCard} from "./components/EventCard/EventCard.jsx";
 import {FeedPage} from "./views/FeedPage/FeedPage.jsx";
 import React, {useEffect} from "react";
+import Profile from "./components/Profile/Profile.jsx";
+import UserPage from "./components/Profile/UserPage.jsx";
 
 function App() {
 
@@ -78,6 +80,7 @@ function App() {
                    <Route path='/' element={<FeedPage/>}/>
                    <Route path='/create-event' element={<CreateEvent/>}/>
                    <Route path='/signup' element={<SignUp />}/>
+                   <Route path='/profile' element={<UserPage  />}/>
                   <Route path='/signin' element={<Login onSubmitForm={handleLogin} />}/>
               </Route>
           </Routes>
