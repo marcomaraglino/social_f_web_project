@@ -1,6 +1,6 @@
-import Navbar from '../components/NavBar/NavBar.jsx';
+import Navbar from 'src/components/NavBar/NavBar.jsx';
 import {Outlet} from "react-router-dom";
-import BottomBar from "../components/Navbar/BottomBar.jsx";
+import BottomBar from "src/components/Navbar/BottomBar.jsx";
 function Layout({onLogout}) {
     return (
         <>
