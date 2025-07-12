@@ -55,8 +55,14 @@ function NavBar({user, onLogout}) {
                 {/* !!!!!!! CAMBIARE VISUALIZZAZIONE UTENTE*/}
                 {user && (
                     <div className="d-flex align-items-center">
-                        <span className="me-2">Ciao, {user.username}!</span>
+                        <span className="me-2">Ciao, {user.id}!</span>
                         <button className="btn btn-outline-secondary" onClick={onLogout}>Logout</button>
+                    </div>
+                )}
+                {!user && (
+                    <div className="d-flex align-items-center">
+                        <span className="me-2">Non sei loggato</span>
+                        <Link to="/signin" className="btn btn-outline-secondary">Login</Link>
                     </div>
                 )}
             </div>

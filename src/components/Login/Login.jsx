@@ -8,11 +8,20 @@ import {useState} from "react";
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        onSubmitForm({email, password});
-        navigate('/')
-    }
+    const handleSubmit = async (event) => {
+            event.preventDefault();
+            try {
+                setError(null); // reset eventuali errori precedenti
+                const data = await onSubmitForm({email, password });
+                console.log("Login avvenuto con successo:", data);
+                navigate('/')
+            } catch (error) {
+                console.error("Errore durante il login :", error);
+                setError(error.message); // Usa error.message per visualizzarlo a schermo
+            }
+    };
+
+
          return (
              <div className='loginContainer'>
                 <div className='loginBox'>
@@ -33,7 +42,7 @@ import {useState} from "react";
                             onChange={e => setPassword(e.target.value)}/>
                         <button type='submit'>Sign In</button>
                     </form>
-                    {error && <p className='error'>{error.message}</p>}
+                    {error && <p style={ {color: "red"}}>{error}</p>}
                     <Link to='/signup'>
                         Don't have an account <span>Sign Up</span>
                     </Link>

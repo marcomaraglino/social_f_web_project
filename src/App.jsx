@@ -33,6 +33,32 @@ function App() {
         }
     }, []);
 
+    const handleRegister = async (credentials) => {
+        const endpoint = `${import.meta.env.VITE_API_BASE_URL}/auth/register`;
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials),
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data?.message || `Errore registrazione: ${response.status}`);
+            }
+
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            setCurrentUser(data.user);
+        } catch (error) {
+            console.error("Errore API " + error);
+            throw new Error(error.message || `Errore registrazione`);
+        }
+    }
+
     const handleLogin = async (credentials) => {
         const endpoint = `${import.meta.env.VITE_API_BASE_URL}/auth/login`;
 
@@ -55,6 +81,7 @@ function App() {
             setCurrentUser(data.user)
         } catch (error) {
             console.error("Errore API " + error);
+            throw new Error(error.message || `Errore autenticazione`);
         }
     }
 
@@ -79,7 +106,7 @@ function App() {
               <Route element={<Layout user={currentUser} onLogout={handleLogout}/>}>
                    <Route path='/' element={<FeedPage/>}/>
                    <Route path='/create-event' element={<CreateEvent/>}/>
-                   <Route path='/signup' element={<SignUp />}/>
+                   <Route path='/signup' element={<SignUp onSubmitForm={handleRegister} />}/>
                    <Route path='/profile' element={<UserPage  />}/>
                   <Route path='/signin' element={<Login onSubmitForm={handleLogin} />}/>
               </Route>
