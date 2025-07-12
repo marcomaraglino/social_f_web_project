@@ -1,4 +1,4 @@
-import Navbar from '@/components/NavBar/NavBar';
+import Navbar from '@/components/Navbar/NavBar';
 import {Outlet} from "react-router-dom";
 import BottomBar from "@/components/Navbar/BottomBar";
 function Layout({onLogout}) {
