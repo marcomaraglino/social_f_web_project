@@ -40,7 +40,7 @@ function NavBar({onLogout}) {
     const menuItems = [
         { icon: Home, label: 'Events', path: '/' },
         { icon: Plus, label: 'Create', path: '/create-event' },
-        { icon: MessageCircle, label: 'Chats', path: '/chats' },
+        { icon: MessageCircle, label: 'Chat', path: '/chat' },
         { icon: User, label: 'Profile', path: '/profile' }
     ];
 
