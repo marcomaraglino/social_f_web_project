@@ -1,55 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {refreshAccessToken} from '../../utils/auth'; // Assicurati di avere questa funzione per rinnovare il token
+import {AuthContext} from "@/utils/AuthProvider.jsx";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState('joined');
     const [profileData, setProfileData] = useState({});
+    const { fetchWithAuth } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
-                let accessToken = localStorage.getItem('accessToken');
-                let response = await fetch(import.meta.env.VITE_API_BASE_URL + '/profile', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                    },
-                });
-                console.log("Response:", response.status);
-
-                // Se scaduto, prova a rinnovarlo
-                if (response.status === 401 || response.status === 403) {
-                    accessToken = await refreshAccessToken();
-                    console.log("Token Refreshato");
-
-                    // Ritenta la richiesta con il nuovo token
-                    response = await fetch(import.meta.env.VITE_API_BASE_URL + '/profile/', {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${accessToken}`,
-                        },
-                    });
-                }
-
+                const response = await fetchWithAuth(import.meta.env.VITE_API_BASE_URL + '/profile/');
                 if (!response.ok) throw new Error("Failed to fetch profile data");
-
                 const data = await response.json();
                 setProfileData(data);
             } catch (error) {
                 console.error('Error fetching profile data:', error);
             }
         };
-        fetchProfileData();
-    }, []);
 
-    const renderEventStatus = (status) => {
-        const styles = {
-            upcoming: 'primary',
-            completed: 'secondary',
-        };
-        return <span className={`badge bg-${styles[status]}`}>{status}</span>;
-    };
+        fetchProfileData();
+    }, [fetchWithAuth]);
 
     return (
         <div className="container my-4">
