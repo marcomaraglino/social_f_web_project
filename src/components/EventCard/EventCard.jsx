@@ -12,7 +12,7 @@ export function EventCard(props){
     }
     const isOnline = (online) => online === true;
     return(
-            <div className='infoCard p-4 d-flex flex-column rounded-3 gap-2 shadow'>
+            <div className='text-start p-4 d-flex flex-column rounded-3 gap-2 shadow'>
                 <div className="d-flex justify-content-between">
                     <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.activity)}`}>
                         {props.activity}
@@ -29,9 +29,9 @@ export function EventCard(props){
                             Online
                         </span>
                 </div>
-                <h5>{props.nome}</h5>
+                <h2 className="text-start fw-bold">{props.nome}</h2>
                 <p>{props.descrizione}</p>
-                <div className='otherInfo'>
+                <div className=''>
                     <div className={'d-flex gap-2'}>
                         <Calendar size={20} color='#7a7a7a' />
                         <p>{props.data}</p>
