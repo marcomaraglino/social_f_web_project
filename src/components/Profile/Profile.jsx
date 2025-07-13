@@ -7,6 +7,9 @@ const UserProfile = () => {
     const [activeTab, setActiveTab] = useState('joined');
     const { user, fetchWithAuth, setUser } = useContext(AuthContext);
 
+    const createdEvents = user?.createdEvents ?? [];
+    const joinedEvents = user?.joinedEvents ?? [];
+
     const handleRemoveEvent = (eventId) => {
         // Logic to remove event from user's created events
         fetchWithAuth(import.meta.env.VITE_API_BASE_URL +`/events/${eventId}`, {
@@ -76,18 +79,18 @@ const UserProfile = () => {
                         className={`btn ${activeTab === 'joined' ? 'btn-primary' : 'btn-outline-secondary'}`}
                         onClick={() => setActiveTab('joined')}
                     >
-                        Events Joined ({user.joinedEvents.length})
+                        Events Joined ({joinedEvents.length})
                     </button>
                     <button
                         className={`btn ${activeTab === 'created' ? 'btn-primary' : 'btn-outline-secondary'}`}
                         onClick={() => setActiveTab('created')}
                     >
-                        Events Created ({user.createdEvents.length})
+                        Events Created ({createdEvents.length})
                     </button>
                 </div>
 
                 <div className="list-group">
-                    {(activeTab === 'joined' ? user.joinedEvents : user.createdEvents).map((event, index) => (
+                    {(activeTab === 'joined' ? joinedEvents : createdEvents).map((event, index) => (
                         <div
                             key={index}
                             className="list-group-item d-flex justify-content-between align-items-center"
@@ -120,7 +123,7 @@ const UserProfile = () => {
                         </div>
                     ))}
 
-                    {(activeTab === 'created' && user.createdEvents.length === 0) && (
+                    {(activeTab === 'created' && createdEvents.length === 0) && (
                         <p className="text-muted small">No events created yet.</p>
                     )}
                 </div>
