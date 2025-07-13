@@ -1,4 +1,8 @@
 import './EventCard.css'
+import {Link, Route} from 'react-router-dom';
+import React from 'react';
+import {ViewDetails} from '../../components/ViewDetails/ViewDetails.jsx';
+import {ViewPartecipants} from '../../components/ViewPartecipants/ViewPartecipants.jsx';
 import {Calendar, Users, MapPin, Globe} from 'lucide-react'
 export function EventCard(props){
     const getActivityClass = (activity) => {
@@ -11,6 +15,26 @@ export function EventCard(props){
         }
     }
     const isOnline = (online) => online === true;
+    const [modalShow, setModalShow] = React.useState(false);
+    const [showPartecipants, setShowPartecipants] = React.useState(false);
+    const partecipanti = [
+        {
+            id: 1,
+            nomePartecipante: 'Claudio',
+        },
+        {
+            id: 2,
+            nomePartecipante: 'Giacomo'
+        },
+        {
+            id: 3,
+            nomePartecipante: 'Marco'
+        },
+        {
+            id: 4,
+            nomePartecipante: 'Michael'
+        }
+    ]
     return(
             <div className='text-start p-4 d-flex flex-column rounded-3 gap-2 shadow'>
                 <div className="d-flex justify-content-between">
@@ -52,7 +76,32 @@ export function EventCard(props){
                 <div className='statsPartecipanti'>
                     <div className='fillStats'></div>
                 </div>
-                <button className='btn btn-gradient sdetails px-4 py-3'>View Details</button>
+                    <button className='btn btn-gradient details w-100 py-3' onClick={()=>setModalShow(true)}>
+                        View Details</button>
+                <ViewDetails
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    onShowPartecipants={() =>{
+                        setModalShow(false);
+                        setShowPartecipants(true)}}
+                    nome={props.nome}
+                    activity={props.activity}
+                    key={props.id}
+                    descrizione={props.descrizione}
+                    data={props.data}
+                    luogo={props.luogo}
+                    partecipanti={props.partecipanti}
+                    online={props.online}
+
+                />
+
+                    <ViewPartecipants
+                        show={showPartecipants}
+                        onHide={() => setShowPartecipants(false)}
+                        activity={props.activity}
+                        online={props.online}
+                        partecipanti={partecipanti}
+                    />
             </div>
 
     )

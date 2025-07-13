@@ -1,0 +1,13 @@
+.custom-modal .modal-content {
+    font-family: Poppins, sans-serif;
+    border-radius: 20px;
+    padding: 10px;
+    border-color: white;
+}
+
+.button-modal{
+    border-radius: 15px;
+    background-color: var(--button-color);
+    background-hover: var(--button-hover);
+
+}

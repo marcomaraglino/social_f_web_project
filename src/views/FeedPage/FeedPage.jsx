@@ -1,7 +1,8 @@
 import {EventCard} from "../../components/EventCard/EventCard.jsx";
+import {ViewDetails} from "../../components/ViewDetails/ViewDetails.jsx";
 import './FeedPage.css'
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 const events=[
     {
         id:1,
@@ -47,8 +48,19 @@ const events=[
         partecipanti:'7/10'
 
     },
-
+    {
+        id:5,
+        activity:'Social',
+        online:true,
+        nome:'Mincraftata',
+        descrizione: 'io e claudio giochiamo a minecraft',
+        data:'Sat, Jun 17 at 18:00',
+        luogo:'Discord',
+        partecipanti:'2/10'
+    }
 ]
+
+
 export function FeedPage(){
 
     const [selectedCategory, setSelectedCategory] = useState("All");
@@ -83,7 +95,7 @@ export function FeedPage(){
                     {eventiFiltrati.map((events)=>(
 
                             <EventCard activity={events.activity}
-                                        key={events.id}
+                                       key={events.id}
                                        nome={events.nome}
                                        online={events.online}
                                        descrizione={events.descrizione}
