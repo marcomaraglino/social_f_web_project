@@ -1,11 +1,19 @@
 import { createContext, useState, useEffect } from "react";
-import { refreshAccessToken } from "./auth"; // <-- importa la funzione di refresh
+import { refreshAccessToken } from "./RefreshToken"; // <-- importa la funzione di refresh
 
 export const AuthContext = createContext();
-
+/*
+* AuthContext serve per gestire lo stato di autenticazione dell'utente
+* * Fornisce metodi per login, logout, registrazione e fetch con autenticazione
+* Ma anche per gestire il profilo utente e le sue informazioni
+* Quando serve mostrare informazioni come il nome utente, email, ecc.
+* usare i metodi presenti qui
+*
+*
+* */
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true); // loading per il bootstrap dell'utente
+    const [loading, setLoading] = useState(true); // loading nel caso in cui mi serve
 
     // 🔁 Al primo montaggio: prova a prendere i dati profilo
     useEffect(() => {
