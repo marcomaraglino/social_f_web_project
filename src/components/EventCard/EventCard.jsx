@@ -12,7 +12,7 @@ export function EventCard(props){
     }
     const isOnline = (online) => online === true;
     return(
-            <div className='infoCard shadow'>
+            <div className='infoCard'>
                 <div className="d-flex justify-content-between">
                     <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.activity)}`}>
                         {props.activity}
