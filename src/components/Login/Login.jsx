@@ -1,24 +1,25 @@
 import './Login.css'
 import {Link, useNavigate} from 'react-router-dom'
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AuthContext} from "@/utils/AuthProvider.jsx";
 
-    function Login({onSubmitForm}){
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+    function Login(){
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+        const [error, setError] = useState(null);
+        const { login } = useContext(AuthContext);
+        const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-            event.preventDefault();
+        const handleSubmit = async (e) => {
+            e.preventDefault();
             try {
-                setError(null); // reset eventuali errori precedenti
-                const data = await onSubmitForm({email, password });
-                navigate('/')
-            } catch (error) {
-                console.error("Errore durante il login :", error);
-                setError(error.message); // Usa error.message per visualizzarlo a schermo
+                setError(null);
+                await login({ email, password });
+                navigate('/');
+            } catch (err) {
+                setError(err.message);
             }
-    };
+        };
 
 
          return (

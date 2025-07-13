@@ -1,7 +1,10 @@
-import React, {useEffect} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {Navigate, Outlet, useLocation} from 'react-router-dom'
+import {AuthContext} from "@/utils/AuthProvider.jsx";
 
-const PrivateRoute = ({ user }) => {
+const PrivateRoute = () => {
+
+    const { user, loading } = useContext(AuthContext);
 
     const location = useLocation();
     useEffect(() => {
