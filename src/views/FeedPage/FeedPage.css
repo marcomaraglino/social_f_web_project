@@ -9,13 +9,16 @@
     align-items: center;
     text-align: left;
 }
-.card-grid{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 colonna per default (mobile) */
     gap: 1rem;
 }
-.cards-grid >*{
+
+@media screen and (min-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonne su tablet e desktop */
+    }
 }
 .filters{
     display: flex;

@@ -1,10 +1,9 @@
-.cardevent {
+.infoCard {
     background-color: white;
     border-radius: 20px;
     padding: 2rem;
     width: 100%;
     display: flex;
-    flex: 0 0 calc(50% - 0.5rem); /* 2 per riga considerando il gap */
     flex-direction: column;
     gap: 1rem;
 }
