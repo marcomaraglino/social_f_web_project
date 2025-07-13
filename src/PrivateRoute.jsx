@@ -1,17 +1,23 @@
-import React, {useContext, useEffect} from 'react'
-import {Navigate, Outlet, useLocation} from 'react-router-dom'
-import {AuthContext} from "@/utils/AuthProvider.jsx";
+import React, {useContext, useEffect} from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { AuthContext } from "@/utils/AuthProvider.jsx";
 
 const PrivateRoute = () => {
-
     const { user, loading } = useContext(AuthContext);
 
-    const location = useLocation();
     useEffect(() => {
-        if(!user) {
-            alert("Dev'essere autenticato per accedere a questa pagina");
+        if (!loading && !user) {
+            alert("Devi essere autenticato per accedere a questa pagina.");
         }
-    }, [user, location]);
-    return user ? <Outlet /> : <Navigate to="/signin" replace />
-}
+    }, [loading, user]);
+
+    if (loading) {
+        // Mostra un caricamento o nulla finché non finisce il fetch dell'utente
+        return <div className="text-center mt-5">Caricamento...</div>;
+    }
+
+    // Se user è presente, mostra le route protette
+    return user ? <Outlet /> : <Navigate to="/signin" replace />;
+};
+
 export default PrivateRoute;

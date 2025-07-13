@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
         };
 
         fetchUser();
-    }, []);
+    }, );
 
     // ✅ LOGIN
     const login = async (credentials) => {
