@@ -62,9 +62,3 @@
     border:1px solid transparent;
     font-weight: bold;
 }
-
-@media (max-width: 1024px) {
-    .infoCard {
-        flex: 0 0 100% !important;
-    }
-}
