@@ -7,6 +7,7 @@ function Layout({onLogout}) {
             <div className='d-flex flex-column'>
                 <Navbar onLogout={onLogout}/>
                 <BottomBar/>
+
                 <div className="main-content flex-fill">
                     <Outlet/>
                 </div>
