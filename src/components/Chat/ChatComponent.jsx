@@ -9,7 +9,7 @@ function ChatPage() {
     }
 
     return (
-        <div style={{ height: '100%', width: '100%' }}>
+        <div style={{ height: '100vh', width: '100%' }}>
             <iframe
                 src={import.meta.env.VITE_API_CHAT_URL + `?username=${user.username}`}
                 title="Chat"
