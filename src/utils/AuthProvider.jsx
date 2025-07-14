@@ -4,7 +4,7 @@ import { refreshAccessToken } from "./RefreshToken"; // <-- importa la funzione 
 export const AuthContext = createContext();
 /*
 * AuthContext serve per gestire lo stato di autenticazione dell'utente
-* * Fornisce metodi per login, logout, registrazione e fetch con autenticazione
+* Fornisce metodi per login, logout, registrazione e fetch con autenticazione
 * Ma anche per gestire il profilo utente e le sue informazioni
 * Quando serve mostrare informazioni come il nome utente, email, ecc.
 * usare i metodi presenti qui

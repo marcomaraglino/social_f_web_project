@@ -1,8 +1,9 @@
 import './Login.css'
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AuthContext} from "@/utils/AuthProvider.jsx";
 
-function SignUp({onSubmitForm}) {
+function SignUp() {
 
     const [email, setEmail] = useState('');
     const [fullname, setFullname] = useState('');
@@ -10,12 +11,13 @@ function SignUp({onSubmitForm}) {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { register } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             setError(null); // reset eventuali errori precedenti
-            const data = await onSubmitForm({ fullname, username, email, password });
+            const data = await register({ fullname, username, email, password });
             console.log("Registrazione avvenuta con successo:", data);
             navigate('/')
         } catch (error) {
