@@ -34,3 +34,13 @@
     background: linear-gradient(135deg, #3b82f6, #06b6d4);
     color: white;
 }
+.custom-btn {
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: #0056b3;
+    color: white;
+}
