@@ -11,8 +11,8 @@
     height: 100vh;
     position: fixed;
     top: 0;
-    left: 0;
-    width: 256px;
+    left: -15px;
+    width: 270px;
     background-color: white;
     border-right: 1px solid #ededed;
 }

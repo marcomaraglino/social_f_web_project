@@ -65,15 +65,15 @@ function NavBar() {
             <div className="user-details mt-auto">
                 {/* !!!!!!! CAMBIARE VISUALIZZAZIONE UTENTE*/}
                 {user && (
-                    <div className="d-flex align-items-center">
-                        <span className="me-2">Ciao, {user.username}!</span>
-                        <button className="btn btn-outline-secondary" onClick={onLogoutSubmit}>Logout</button>
+                    <div className="d-flex align-items-center gap-2 ps-0">
+                        <span className="me-1">Ciao, {user.username}!</span>
+                        <button className="btn btn-outline-secondary btn-sm" onClick={onLogoutSubmit}>Logout</button>
                     </div>
                 )}
                 {!user && (
                     <div className="d-flex align-items-center">
                         <span className="me-2">Non sei loggato</span>
-                        <Link to="/signin" className="btn btn-outline-secondary">Login</Link>
+                        <Link to="/signin" className="btn btn-outline-secondary btn-sm">Login</Link>
                     </div>
                 )}
             </div>
