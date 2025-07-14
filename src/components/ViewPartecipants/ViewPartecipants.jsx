@@ -28,6 +28,9 @@ export function ViewPartecipants(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
+            <div>
+
+            </div>
             <div className="d-flex justify-content-between p-3">
                     <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.activity)}`}>
                         {props.activity}

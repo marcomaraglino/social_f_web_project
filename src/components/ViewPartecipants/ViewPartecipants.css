@@ -1,3 +1,6 @@
+.custom-modal .modal-title {
+    font-size: 35px;
+}
 .custom-modal .modal-content {
     font-family: Poppins, sans-serif;
     border-radius: 20px;
