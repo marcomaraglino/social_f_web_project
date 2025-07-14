@@ -59,10 +59,10 @@ function NavBar() {
                 </Nav.Link>*/}
             </nav>
 
-            <div className="user-details mb-4">
+            <div className=" user-details text-start mx-auto">
                 {user ? (
                     <div className="d-flex align-items-center">
-                        <div className="d-flex align-items-center bg-light rounded p-2 shadow-sm" style={{ minWidth: '220px' }}>
+                        <div className="d-flex align-items-center bg-light justify-content-evenly rounded p-2 shadow-sm" style={{ minWidth: '220px' }}>
                             <div className="d-flex flex-column">
                                 <span className="fw-bold">{user.username}</span>
                                 <span style={{ fontSize: '12px' }}>{user.email}</span>
@@ -76,7 +76,7 @@ function NavBar() {
                         </div>
                     </div>
                 ) : (
-                    <div className="d-flex align-items-center bg-light rounded p-2 shadow-sm" style={{ minWidth: '220px' }}>
+                    <div className="d-flex justify-content-evenly align-content-between bg-light rounded p-2 shadow-sm" style={{ minWidth: '220px' }}>
                         <div className="d-flex align-items-center">
                             <span className="me-2">Non sei loggato</span>
                             <Link to="/signin" className="btn btn-outline-secondary btn-sm custom-btn">
