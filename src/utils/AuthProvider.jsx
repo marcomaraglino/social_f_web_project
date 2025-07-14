@@ -16,26 +16,39 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true); // loading nel caso in cui mi serve
 
     // 🔁 Al primo montaggio: prova a prendere i dati profilo
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const res = await fetchWithAuth(import.meta.env.VITE_API_BASE_URL + "/profile/");
-                if (!res.ok) throw new Error("Failed to fetch user");
-
-                const data = await res.json();
-                setUser(data);
-            } catch (error) {
-                console.error("Errore nel fetch del profilo:", error);
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
+// ✅ FETCH CON REFRESH AUTOMATICO
+    const fetchWithAuth = async (url, options = {}) => {
+        let token = localStorage.getItem("accessToken");
+        const headers = {
+            ...options.headers,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
         };
 
-        fetchUser();
-    }, );
+        let response = await fetch(url, { ...options, headers });
 
-    // ✅ LOGIN
+        if (response.status === 401 || response.status === 403) {
+            try {
+                const newToken = await refreshAccessToken();
+                if (!newToken) throw new Error("Token refresh fallito");
+
+                const retryHeaders = {
+                    ...options.headers,
+                    Authorization: `Bearer ${newToken}`,
+                    "Content-Type": "application/json",
+                };
+
+                response = await fetch(url, { ...options, headers: retryHeaders });
+            } catch (err) {
+                console.error("Token refresh fallito:", err);
+                logout(false); // logout locale
+                throw err;
+            }
+        }
+
+        return response;
+    };
+  // ✅ LOGIN
     const login = async (credentials) => {
         const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/auth/login", {
             method: "POST",
@@ -91,38 +104,26 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    // ✅ FETCH CON REFRESH AUTOMATICO
-    const fetchWithAuth = async (url, options = {}) => {
-        let token = localStorage.getItem("accessToken");
-        const headers = {
-            ...options.headers,
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await fetchWithAuth(import.meta.env.VITE_API_BASE_URL + "/profile/");
+                if (!res.ok) throw new Error("Failed to fetch user");
+
+                const data = await res.json();
+                setUser(data);
+            } catch (error) {
+                console.error("Errore nel fetch del profilo:", error);
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
         };
 
-        let response = await fetch(url, { ...options, headers });
+        fetchUser();
+    }, );
 
-        if (response.status === 401 || response.status === 403) {
-            try {
-                const newToken = await refreshAccessToken();
-                if (!newToken) throw new Error("Token refresh fallito");
-
-                const retryHeaders = {
-                    ...options.headers,
-                    Authorization: `Bearer ${newToken}`,
-                    "Content-Type": "application/json",
-                };
-
-                response = await fetch(url, { ...options, headers: retryHeaders });
-            } catch (err) {
-                console.error("Token refresh fallito:", err);
-                logout(false); // logout locale
-                throw err;
-            }
-        }
-
-        return response;
-    };
 
     return (
         <AuthContext.Provider
