@@ -12,7 +12,9 @@ import React, {useEffect} from "react";
 import Profile from "./components/Profile/Profile.jsx";
 import UserPage from "./components/Profile/UserPage.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
-import ChatPage from './components/Chat/ChatComponent.jsx';
+import Chat from "./components/Chat/Chat.jsx";
+
+
 
 function App() {
   return (
@@ -27,7 +29,7 @@ function App() {
                   <Route element={<PrivateRoute />}>
                       <Route path='/profile' element={<UserPage  />}/>
                       <Route path='/create-event' element={<CreateEvent/>}/>
-                      <Route path="/chat" element={<ChatPage />} />
+                      <Route path="/chat" element={<Chat />} />
                   </Route>
               </Route>
           </Routes>
