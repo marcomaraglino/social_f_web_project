@@ -8,9 +8,13 @@
     border-color: white;
 }
 
-.button-modal{
+.bottone{
+    --background-color: linear-gradient(135deg, #3b82f6, #06b6d4);
     border-radius: 15px;
-    background-color: var(--button-color);
-    background-hover: var(--button-hover);
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 
 }

@@ -31,6 +31,13 @@
     border-radius:10px;
     height: 8px;
 }
+
+.fillStats{
+    height: 100%;
+    background: var(--button-color);
+    transition: width 0.3s ease-in-out;
+    border-radius: 10px;
+}
 .otherInfo button{
     border-radius: 10px;
     padding: 0.8rem;

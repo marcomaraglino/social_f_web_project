@@ -1,11 +1,13 @@
 import React, {useContext, useState} from 'react';
-import {X, Trash} from 'lucide-react';
+import {X, Trash, PenLine} from 'lucide-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {AuthContext} from "@/utils/AuthProvider.jsx";
+import {UpdateEvent} from "../UpdateEvent/UpdateEvent.jsx"
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState('joined');
     const { user, fetchWithAuth, setUser } = useContext(AuthContext);
+    const [modalShow, setModalShow] = useState(false);
 
     const createdEvents = user?.createdEvents ?? [];
     const joinedEvents = user?.joinedEvents ?? [];
@@ -116,9 +118,16 @@ const UserProfile = () => {
                                         📍 {event.location}
                                     </p>
                                 </div>
+                                <div className='d-flex gap-2'>
+                                    {activeTab === 'created' && (
+                                        <button className="btn btn-sm btn-outline-danger rounded-pill" onClick={()=>{setModalShow(true)}}>
+                                            <PenLine />
+                                        </button>
+                                    )}
                                 <button onClick={() => handleRemoveEvent(event._id)} className="btn btn-sm btn-outline-danger rounded-pill">
                                     {activeTab === 'created' ? <Trash/> : <X/>}
                                 </button>
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -128,6 +137,11 @@ const UserProfile = () => {
                     )}
                 </div>
             </div>
+            <UpdateEvent
+                show={modalShow}
+                onHide={() => setModalShow(false)}/>
+
+
         </div>
     );
 };

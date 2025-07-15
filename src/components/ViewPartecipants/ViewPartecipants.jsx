@@ -32,8 +32,8 @@ export function ViewPartecipants(props) {
 
             </div>
             <div className="d-flex justify-content-between p-3">
-                    <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.activity)}`}>
-                        {props.activity}
+                    <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.category)}`}>
+                        {props.category}
                     </span>
 
                 <span className={`d-flex align-items-center gap-1 ${isOnline(props.online)
@@ -49,11 +49,7 @@ export function ViewPartecipants(props) {
             </div>
             <Modal.Title className='p-3 fw-bold'>Partecipanti</Modal.Title>
             <Modal.Body>
-                <ul>
-                    {props.partecipanti.map((p)=>(
-                        <li key={p.id}>{p.nomePartecipante}</li>
-                    ))}
-                </ul>
+
             </Modal.Body>
             <div className='d-flex justify-content-center gap-3 mt-3'>
                 <Button className='btn btn-gradient w-100 py-3 button-modal fw-bold' onClick={props.onHide}>Chiudi</Button>
