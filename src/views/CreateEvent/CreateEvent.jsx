@@ -1,10 +1,17 @@
 import {Link, useNavigate} from "react-router-dom";
 import {ArrowLeft, Globe} from "lucide-react";
 import "./CreateEvent.css"
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AuthContext} from "@/utils/AuthProvider.jsx";
+import {AlertContext} from "@/utils/AlertProvider.jsx";
 
 function CreateEvent () {
+    const {fetchWithAuth} = useContext(AuthContext);
+
+    const {showAlert} = useContext(AlertContext);
+
     const categories = ['Sports', 'Gaming', 'Tech', 'Social', 'Food', 'Music'];
+
 
     const navigate = useNavigate();
 
@@ -12,9 +19,8 @@ function CreateEvent () {
         title: '',
         description: '',
         date: '',
-        time: '',
         location: '',
-        maxParticipants: '',
+        max: '',
         category: '',
         isOnline: false
     });
@@ -26,8 +32,22 @@ function CreateEvent () {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("create event");
-        navigate('/')
+        fetchWithAuth(import.meta.env.VITE_API_BASE_URL + '/events', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to create event');
+            }
+            showAlert("Event created successfully!");
+            console.log("create event");
+
+            navigate('/')
+            return response.json();
+        })
     }
 
     return (
@@ -96,12 +116,12 @@ function CreateEvent () {
 
                         {/* Date and Time */}
                         <div className="row mb-4">
-                            <div className="col-6">
+                            <div>
                                 <label className="form-label fw-medium text-dark" htmlFor="date">
                                     Date *
                                 </label>
                                 <input
-                                type="date"
+                                type="datetime-local"
                                 className="form-control rounded-3"
                                 id="date"
                                 onChange={(e) => handleInputChange('date', e.target.value)}
@@ -112,19 +132,6 @@ function CreateEvent () {
 
 
                                 />
-                            </div>
-                            <div className="col-6">
-                                <label className="form-label fw-medium text-dark" htmlFor="time">
-                                    Time *
-                                </label>
-                                <input
-                                type="time"
-                                className="form-control rounded-3"
-                                id="time"
-                                onChange={(e) => handleInputChange('time', e.target.value)}
-                                value={formData.time}
-                                required
-                                style={{fontSize: '14px'}}/>
                             </div>
                         </div>
 
@@ -163,17 +170,17 @@ function CreateEvent () {
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="maxParticipants" className="form-label fw-medium text-dark">
+                            <label htmlFor="max" className="form-label fw-medium text-dark">
                                 Maximum Participants *
                             </label>
                             <input
                                 type="number"
-                                onChange={(e) => handleInputChange('maxParticipants', e.target.value)}
-                                value={formData.maxParticipants}
+                                onChange={(e) => handleInputChange('max', e.target.value)}
+                                value={formData.max}
                                 min="2"
                                 max="100"
                                 className="form-control rounded-3"
-                                id="maxParticipants"
+                                id="max"
                                 placeholder="How many people can join?"
                                 required
                                 style={{fontSize: '14px'}}
