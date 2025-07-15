@@ -27,6 +27,36 @@ export const EventProvider = ({children}) => {
             })
     }, []);
 
+    const updateEvent = (eventId, updatedData) => {
+        if (!eventId) {
+            console.error("ID evento mancante in updateEvent!");
+            setError("ID evento non trovato.");
+            return;
+        }
+        fetchWithAuth(import.meta.env.VITE_API_BASE_URL + '/events/' + eventId, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error("Errore nella risposta");
+                return res.json();
+            })
+            .then((data) => {
+                setEvents(prevEvents =>
+                    prevEvents.map(event =>
+                        event._id === eventId ? {...event, ...data} : event
+                    )
+                );
+            })
+            .catch((err) => {
+                console.error('Errore nel fetch', err);
+                setError("Errore nell'aggiornamento dell'evento");
+            });
+    }
+
     const joinEvent = async (eventId) => {
         if (!eventId) {
             console.error("ID evento mancante in handleJoin!");
@@ -63,7 +93,7 @@ export const EventProvider = ({children}) => {
     }
 
     return (
-        <EventContext.Provider value={{events, setEvents, error, setError, joinEvent, getEventById}}>
+        <EventContext.Provider value={{events, setEvents, error, setError, joinEvent, getEventById, updateEvent}}>
             {children}
         </EventContext.Provider>
     )

@@ -13,12 +13,10 @@ import {EventProvider} from "@/utils/EventProvider.jsx";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <AlertProvider>
       <AuthProvider>
           <EventProvider>
           <App />
           </EventProvider>
       </AuthProvider>
-      </AlertProvider>
   </StrictMode>,
 )

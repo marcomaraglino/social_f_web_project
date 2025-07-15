@@ -8,6 +8,7 @@ const UserProfile = () => {
     const [activeTab, setActiveTab] = useState('joined');
     const { user, fetchWithAuth, setUser } = useContext(AuthContext);
     const [modalShow, setModalShow] = useState(false);
+    const [eventId, setEventId] = useState(null);
 
     const createdEvents = user?.createdEvents ?? [];
     const joinedEvents = user?.joinedEvents ?? [];
@@ -120,7 +121,10 @@ const UserProfile = () => {
                                 </div>
                                 <div className='d-flex gap-2'>
                                     {activeTab === 'created' && (
-                                        <button className="btn btn-sm btn-outline-danger rounded-pill" onClick={()=>{setModalShow(true)}}>
+                                        <button className="btn btn-sm btn-outline-danger rounded-pill" onClick={()=>{
+                                            setModalShow(true)
+                                            setEventId(event._id)
+                                        }}>
                                             <PenLine />
                                         </button>
                                     )}
@@ -139,9 +143,9 @@ const UserProfile = () => {
             </div>
             <UpdateEvent
                 show={modalShow}
+                eventId={eventId}
+
                 onHide={() => setModalShow(false)}/>
-
-
         </div>
     );
 };
