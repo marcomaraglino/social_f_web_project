@@ -1,31 +1,24 @@
-.main-content{
-    padding:0;
-    margin-left: 128px
+
+html, body {
+    overflow: hidden;
 }
+
+
+.chat-title{
+    font-weight: bold;
+    margin: 10px 0;
+}
+
 
 .chat-container {
     max-width: 100%;
-    margin: auto;
-    padding: 1rem;
+    padding:0;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 91vh;
     border: 1px solid #ccc;
     border-radius: 10px;
     background: white;
-}
-
-.chat-title {
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-align: center;
-}
-
-.chat-clients {
-    text-align: center;
-    color: dodgerblue;
-    margin-bottom: 2px;
 }
 
 .chat-messages {
@@ -33,7 +26,7 @@
     overflow-y: auto;
     background: white;
     border-radius: 8px;
-    padding: 8px
+    padding: 1rem;
 }
 
 .chat-messages ul {
@@ -41,6 +34,11 @@
     padding: 0;
     margin: 0;
 }
+.chat-clients{
+    margin-top: 3px;
+    color:dodgerblue;
+}
+
 
 .msg-left,
 .msg-right {
@@ -56,6 +54,7 @@
     justify-content: flex-end;
 }
 
+
 .msg-right .bubble {
     color: white;
     background-color: dodgerblue;
@@ -65,15 +64,15 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     word-wrap: break-word;
 }
-
 .msg-left .bubble {
-    background-color:white;
+    background-color: white;
     padding: 0.6rem 0.8rem;
     border-radius: 12px;
     max-width: 75%;
-    box-shadow:0px 0px 0px 2px dodgerblue;
+    box-shadow: 0px 0px 0px 2px dodgerblue;
     word-wrap: break-word;
 }
+
 
 .msg-left .meta {
     display: block;
@@ -89,6 +88,7 @@
     color: white;
 }
 
+
 .chat-form {
     width: 100%;
 }
@@ -102,7 +102,10 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
+    padding: 0.8rem 1rem;
+    padding-right: 50px;
 }
+
 
 .chat-send-button {
     position: absolute;
@@ -122,7 +125,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .chat-send-button:hover {
