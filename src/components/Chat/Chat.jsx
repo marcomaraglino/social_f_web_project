@@ -84,7 +84,7 @@ function Chat() {
                         <div ref={messagesEndRef} />
                     </ul>
                 </div>
-
+                <div className='d-flex justify-content-center align-items-center px-5'>
                 <form className="chat-form" onSubmit={sendMessage}>
                     <div className="input-wrapper">
                         <input
@@ -98,6 +98,7 @@ function Chat() {
                         </button>
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     );
