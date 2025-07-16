@@ -114,10 +114,6 @@ function Chat() {
             setInput('');
             console.log('Socket offline: messaggio messo in coda');
         }
-
-        setTimeout(() => {
-            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
     };
 
     if (!user) {
