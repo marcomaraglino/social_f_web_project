@@ -27,6 +27,35 @@ export const EventProvider = ({children}) => {
             })
     }, []);
 
+    const createEvent = async (eventData) => {
+        try {
+            const res = await fetchWithAuth(import.meta.env.VITE_API_BASE_URL + '/events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(eventData)
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data?.message || 'Errore nella creazione dell’evento');
+            }
+
+            const newEvent = data.post; // <-- usa "post" non "event"
+
+            if (newEvent && newEvent._id) {
+                setEvents(prev => [...prev, newEvent]);
+            }
+
+            return newEvent;
+        } catch (error) {
+            console.error('Errore nella creazione evento:', error);
+            throw error;
+        }
+    };
+
     const updateEvent = (eventId, updatedData) => {
         if (!eventId) {
             console.error("ID evento mancante in updateEvent!");
@@ -65,20 +94,21 @@ export const EventProvider = ({children}) => {
                 method: 'POST'
             });
 
-            if (!res.ok) throw new Error('Errore nella risposta');
-
             const data = await res.json();
-            const updatedEvent = data.post;
 
-            // ✅ aggiorna lo stato globale degli eventi
-            setEvents(prevEvents =>
-                prevEvents.map(event =>
-                    event._id === updatedEvent._id ? updatedEvent : event
-                )
-            );
+            if (!res.ok) {
+                throw new Error(data?.message || 'Errore nella risposta');
+            }
 
-            return updatedEvent;
+            // Se l'evento è stato eliminato (nessun partecipante rimasto)
+            if (data.message?.includes("Evento eliminato")) {
+                setEvents(prev => prev.filter(ev => ev._id !== eventId));
+            } else if (data.post) {
+                // Altrimenti aggiorna lo stato dell'evento
+                setEvents(prev => prev.map(ev => ev._id === eventId ? data.post : ev));
+            }
 
+            return data;
         } catch (err) {
             console.error("Errore nel fetch", err);
         }
@@ -93,7 +123,7 @@ export const EventProvider = ({children}) => {
     }
 
     return (
-        <EventContext.Provider value={{events, setEvents, error, setError, joinEvent, getEventById, updateEvent}}>
+        <EventContext.Provider value={{events, setEvents, error, setError, joinEvent, getEventById, updateEvent, createEvent}}>
             {children}
         </EventContext.Provider>
     )

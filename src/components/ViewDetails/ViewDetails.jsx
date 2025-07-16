@@ -4,10 +4,18 @@ import './ViewDetails.css'
 import {Calendar, Globe, MapPin, Users} from "lucide-react";
 import {EventContext, EventProvider} from "@/utils/EventProvider.jsx";
 import {useContext} from "react";
+import {AuthContext} from "@/utils/AuthProvider.jsx";
 
 
 export function ViewDetails(props) {
     const {joinEvent} = useContext(EventContext);
+    const { user } = useContext(AuthContext);
+
+    const isUserSubscribed = props.event.subscribe.some(
+        (participant) => participant.username === user?.username
+    );
+
+
     const isOnline = (online) => online === true;
     const getActivityClass = (activity) => {
         switch (activity) {
@@ -84,11 +92,14 @@ export function ViewDetails(props) {
                         <Button className='btn btn-gradient w-50 py-3 button-modal fw-bold ' onClick={props.onShowPartecipants}>
                             Vedi Partecipanti
                         </Button>
-                        <Button className='btn btn-gradient w-50 py-3 button-modal fw-bold' onClick={() => {
-                            joinEvent(props.event._id)
-                            props.onHide();
-                        }}>
-                            Join Event
+                        <Button
+                            className="btn btn-gradient w-50 py-3 button-modal fw-bold"
+                            onClick={() => {
+                                joinEvent(props.event._id); // gestisce sia join che leave
+                                props.onHide();
+                            }}
+                        >
+                            {isUserSubscribed ? "Leave Event" : "Join Event"}
                         </Button>
                     </div>
 

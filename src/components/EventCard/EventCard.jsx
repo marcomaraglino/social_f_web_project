@@ -71,8 +71,7 @@
                     <div className='statsPartecipanti'>
                         <div className='fillStats' style={{width: `${(props.event.subscribe.length/props.event.max)*100}%`}}></div>
                     </div>
-                        <button className='btn btn-gradient details w-100 py-3' onClick={()=>{setModalShow(true)
-                        console.log(props.id)}}>
+                        <button className='btn btn-gradient details w-100 py-3' onClick={()=>{setModalShow(true)}}>
                             View Details</button>
                     <ViewDetails
                         show={modalShow}

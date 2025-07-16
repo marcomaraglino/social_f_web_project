@@ -2,10 +2,14 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import './ViewPartecipants.css'
 import {Calendar, Globe, MapPin, Users} from "lucide-react";
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {EventContext} from "@/utils/EventProvider.jsx";
 
 
 export function ViewPartecipants(props) {
+
+
+
     const isOnline = (online) => online === true;
     const getActivityClass = (activity) => {
         switch (activity) {
@@ -49,7 +53,17 @@ export function ViewPartecipants(props) {
             </div>
             <Modal.Title className='p-3 fw-bold'>Partecipanti</Modal.Title>
             <Modal.Body>
-
+                <div className='d-flex flex-column gap-3'>
+                    {Array.isArray(props.event?.subscribe) && props.event.subscribe.length > 0 ? (
+                        props.event.subscribe.map((participant, index) => (
+                            <div key={index} className='d-flex align-items-center gap-3'>
+                                <span className='fw-bold'>{participant.username ?? "Utente sconosciuto"}</span>
+                            </div>
+                        ))
+                    ) : (
+                        <p className='text-center text-muted'>Nessun partecipante al momento.</p>
+                    )}
+                </div>
             </Modal.Body>
             <div className='d-flex justify-content-center gap-3 mt-3'>
                 <Button className='btn btn-gradient w-100 py-3 button-modal fw-bold' onClick={props.onHide}>Chiudi</Button>

@@ -4,10 +4,10 @@ import "./CreateEvent.css"
 import {useContext, useState} from "react";
 import {AuthContext} from "@/utils/AuthProvider.jsx";
 import {AlertContext} from "@/utils/AlertProvider.jsx";
+import {EventContext} from "@/utils/EventProvider.jsx";
 
 function CreateEvent () {
-    const {fetchWithAuth} = useContext(AuthContext);
-
+    const {createEvent} = useContext(EventContext); // ✅ usa la funzione creata
     const {showAlert} = useContext(AlertContext);
 
     const categories = ['Sports', 'Gaming', 'Tech', 'Social', 'Food', 'Music'];
@@ -29,26 +29,17 @@ function CreateEvent () {
         setFormData( (prev) => ({...prev, [field]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        fetchWithAuth(import.meta.env.VITE_API_BASE_URL + '/events', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to create event');
-            }
+        try {
+            const createdEvent = await createEvent(formData); // ✅ ora centralizzato
             showAlert("Event created successfully!");
-            console.log("create event");
-
-            navigate('/')
-            return response.json();
-        })
-    }
+            navigate('/');
+        } catch (err) {
+            showAlert("Errore nella creazione dell’evento", "danger");
+        }
+    };
 
     return (
         <div className="container text-start">
