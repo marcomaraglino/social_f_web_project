@@ -3,48 +3,148 @@ import { io } from 'socket.io-client';
 import { AuthContext } from '@/utils/AuthProvider';
 import './Chat.css';
 
-function Chat() {
+function Chat({ onLogout }) {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [clientsTotal, setClientsTotal] = useState(0);
     const messagesEndRef = useRef(null);
-    const { user } = useContext(AuthContext);
-    const token = localStorage.getItem("accessToken");
+    const { user, setUser } = useContext(AuthContext);
     const socket = useRef(null);
+    const [messageQueue, setMessageQueue] = useState([]);
+    const [hasScrolled, setHasScrolled] = useState(false);
+
+    async function refreshAccessToken() {
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/refresh-token', {
+                method: 'POST',
+                credentials: 'include',
+            });
+            if (!response.ok) {
+                throw new Error('Impossibile rinnovare il token');
+            }
+            const data = await response.json();
+            localStorage.setItem('accessToken', data.accessToken);
+            return data.accessToken;
+        } catch (error) {
+            console.error('Refresh token fallito:', error);
+            handleLogout();
+            return null;
+        }
+    }
+
+
+    const handleLogout = () => {
+        localStorage.removeItem('accessToken');
+        setUser(null);
+        if (socket.current) {
+            socket.current.disconnect();
+            socket.current.off();
+        }
+        if (onLogout) onLogout();
+    };
 
     useEffect(() => {
-        if (!user || !token) return;
+        if (!user) return;
+
+        let isMounted = true;
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            handleLogout();
+            return;
+        }
 
         socket.current = io('http://localhost:3000', {
             auth: { token },
             autoConnect: false,
         });
 
-        socket.current.connect();
+        socket.current.on('connect', () => {
+            console.log('Socket connesso');
+            socket.current.emit('register', user.username);
 
-        socket.current.emit('register'); // ora non serve username, lo prende il server dal token
 
-        socket.current.on('clients-total', setClientsTotal);
-        socket.current.on('chat-history', (history) => setMessages(history));
-        socket.current.on('chat-message', (data) => {
-            setMessages((prev) => [...prev, data]);
+            if (messageQueue.length > 0) {
+                messageQueue.forEach(msg => {
+                    socket.current.emit('message', { message: msg });
+                });
+                setMessageQueue([]);
+                console.log('Messaggi in coda inviati al server');
+            }
         });
 
+        socket.current.on('clients-total', setClientsTotal);
+
+        socket.current.on('chat-history', (history) => {
+            if (isMounted) setMessages(history);
+        });
+
+        socket.current.on('chat-message', (data) => {
+            if (!isMounted) return;
+            setMessages((prev) => {
+                const updated = [...prev, data];
+                setTimeout(() => {
+                    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+                return updated;
+            });
+        });
+
+
+        socket.current.on('connect_error', async (err) => {
+            console.log('Errore connessione socket:', err.message);
+            if (
+                err.message === 'jwt malformed' ||
+                err.message === 'Token non valido' ||
+                err.message === 'Token mancante'
+            ) {
+                console.log('Token scaduto o non valido, provo a rinnovare...');
+                const newToken = await refreshAccessToken();
+                if (newToken) {
+                    socket.current.auth.token = newToken;
+                    socket.current.connect();
+                } else {
+                    console.log('Non è stato possibile rinnovare il token, eseguo logout.');
+                    handleLogout();
+                }
+            }
+        });
+
+        socket.current.connect();
+
         return () => {
-            socket.current.disconnect();
-            socket.current.off();
+            isMounted = false;
+            if (socket.current) {
+                socket.current.disconnect();
+                socket.current.off();
+            }
         };
-    }, [user, token]);
+    }, [user]);
+
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages]);
+        if (messages.length > 0 && !hasScrolled) {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            setHasScrolled(true);
+        }
+    }, [messages, hasScrolled]);
+
 
     const sendMessage = (e) => {
         e.preventDefault();
         if (!input.trim()) return;
-        socket.current.emit('message', { message: input });
-        setInput('');
+
+        if (socket.current && socket.current.connected) {
+            socket.current.emit('message', { message: input });
+            setInput('');
+        } else {
+            setMessageQueue(prev => [...prev, input]);
+            setInput('');
+            console.log('Socket offline: messaggio messo in coda');
+        }
+
+        setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
     };
 
     if (!user) {
@@ -85,19 +185,20 @@ function Chat() {
                     </ul>
                 </div>
                 <div className='d-flex justify-content-center align-items-center px-5'>
-                <form className="chat-form" onSubmit={sendMessage}>
-                    <div className="input-wrapper">
-                        <input
-                            type="text"
-                            placeholder="Scrivi un messaggio..."
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                        />
-                        <button type="submit" className="chat-send-button">
-                            ➤
-                        </button>
-                    </div>
-                </form>
+                    <form className="chat-form" onSubmit={sendMessage}>
+                        <div className="input-wrapper">
+                            <input
+                                type="text"
+                                placeholder="Scrivi un messaggio..."
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                autoComplete="off"
+                            />
+                            <button type="submit" className="chat-send-button">
+                                ➤
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
