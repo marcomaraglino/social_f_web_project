@@ -4,7 +4,7 @@ import { AuthContext } from '@/utils/AuthProvider';
 import { refreshAccessToken } from '@/utils/RefreshToken';
 import './Chat.css';
 
-function Chat({ onLogout }) {
+function Chat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [clientsTotal, setClientsTotal] = useState(0);
@@ -13,21 +13,6 @@ function Chat({ onLogout }) {
     const socket = useRef(null);
     const [messageQueue, setMessageQueue] = useState([]);
     const [hasScrolled, setHasScrolled] = useState(false);
-
-    useEffect(() => {
-        const wakeUpServer = async () => {
-            try {
-                await fetch(import.meta.env.VITE_API_BASE_URL);
-                console.log("Server risvegliato");
-            } catch (err) {
-                console.error("Errore nel ping del server:", err);
-            }
-        };
-
-        if (user) {
-            wakeUpServer();
-        }
-    }, [user]);
 
     useEffect(() => {
         if (!user) return;
@@ -41,8 +26,8 @@ function Chat({ onLogout }) {
 
         socket.current = io(import.meta.env.VITE_API_BACK_END_URL || 'http://localhost:3000', {
             auth: { token },
+            transports: ['polling'],
             autoConnect: false,
-            transports: ['websocket'], // forza WebSocket puro
         });
 
         socket.current.on('connect', () => {
