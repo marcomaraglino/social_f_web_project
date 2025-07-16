@@ -15,6 +15,21 @@ function Chat({ onLogout }) {
     const [hasScrolled, setHasScrolled] = useState(false);
 
     useEffect(() => {
+        const wakeUpServer = async () => {
+            try {
+                await fetch(import.meta.env.VITE_API_BASE_URL);
+                console.log("Server risvegliato");
+            } catch (err) {
+                console.error("Errore nel ping del server:", err);
+            }
+        };
+
+        if (user) {
+            wakeUpServer();
+        }
+    }, [user]);
+
+    useEffect(() => {
         if (!user) return;
 
         let isMounted = true;
@@ -27,6 +42,7 @@ function Chat({ onLogout }) {
         socket.current = io(import.meta.env.VITE_API_BACK_END_URL || 'http://localhost:3000', {
             auth: { token },
             autoConnect: false,
+            transports: ['websocket'], // forza WebSocket puro
         });
 
         socket.current.on('connect', () => {
