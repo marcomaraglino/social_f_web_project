@@ -107,7 +107,7 @@ export function ViewDetails(props) {
                                     showAlert("Devi essere loggato per partecipare ad un evento!", "warning");
                                     navigate("/signin");
                                 } else {
-                                    showAlert("Iscritto con successo all'evento!MHAAAAAAAAAAAAAANZ", "success");
+                                    showAlert("Iscritto con successo all'evento!", "success");
                                 }
                             }
                             }
@@ -123,7 +123,7 @@ export function ViewDetails(props) {
                                     props.onHide();
                                     showAlert("Disiscritto con successo dall'evento!", "danger");
                                 }}>
-                                    Laeve Event
+                                    Leave Event
                             </Button>
                         )}
                     </div>
