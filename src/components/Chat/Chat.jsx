@@ -65,7 +65,7 @@ function Chat({ onLogout }) {
         }
 
         //inizializzazione del socket
-        socket.current = io('http://localhost:3000', {
+        socket.current = io(import.meta.env.VITE_API_BACK_END_URL || 'http://localhost:3000', {
             auth: { token },
             autoConnect: false,
         });
