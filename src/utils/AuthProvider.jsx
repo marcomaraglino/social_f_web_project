@@ -89,19 +89,27 @@ export const AuthProvider = ({ children }) => {
 
     // ✅ LOGOUT
     const logout = async (callApi = true) => {
-        if (callApi) {
-            try {
-                await fetch(import.meta.env.VITE_API_BASE_URL + "/auth/logout", {
-                    method: "POST",
-                    credentials: "include",
-                });
-            } catch (error) {
-                console.error("Logout error:", error);
+        try {
+            setLoading(true);
+            if (callApi) {
+                try {
+                    await fetch(import.meta.env.VITE_API_BASE_URL + "/auth/logout", {
+                        method: "POST",
+                        credentials: "include",
+                    });
+                } catch (error) {
+                    console.error("Logout error:", error);
+                }
             }
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("user");
+        } catch (error) {
+            console.error("Errore durante il logout:", error);
+        } finally {
+            setUser(null);
+            setLoading(false);
         }
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
-        setUser(null);
+
     };
 
 

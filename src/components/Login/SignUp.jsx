@@ -1,6 +1,6 @@
 import './Login.css'
 import {Link, useNavigate} from "react-router-dom";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "@/utils/AuthProvider.jsx";
 
 function SignUp() {
@@ -11,7 +11,14 @@ function SignUp() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const { register } = useContext(AuthContext);
+    const { register, user } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (user) {
+            // Se l'utente è già loggato, reindirizza alla home page
+            navigate('/');
+        }
+    }, )
 
     const handleSubmit = async (event) => {
         event.preventDefault();

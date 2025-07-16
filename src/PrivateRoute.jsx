@@ -1,13 +1,15 @@
 import React, {useContext, useEffect} from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from "@/utils/AuthProvider.jsx";
+import {AlertContext} from "@/utils/AlertProvider.jsx";
 
 const PrivateRoute = () => {
     const { user, loading } = useContext(AuthContext);
+    const { showAlert } = useContext(AlertContext);
 
     useEffect(() => {
         if (!loading && !user) {
-            alert("Devi essere autenticato per accedere a questa pagina.");
+            showAlert("Devi effettuare il login per accedere a questa pagina.", "warning");
         }
     }, [loading, user]);
 
