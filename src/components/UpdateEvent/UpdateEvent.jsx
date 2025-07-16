@@ -51,13 +51,14 @@ export function UpdateEvent(props) {
         try {
             await updateEvent(props.eventId, eventData)
             console.log("submitted");
+            console.log(eventData);
+            window.location.reload();
             props.onHide(); // Close the modal after submission
         } catch (error) {
             console.error("Error updating event:", error);
             // Here you can handle the error, e.g., show an alert or message
         }
         //refresh the current page
-        window.location.reload();
 
 
         // Here you can handle the form submission, e.g., send data to the server
