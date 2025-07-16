@@ -6,9 +6,12 @@ import {EventContext, EventProvider} from "@/utils/EventProvider.jsx";
 import {useContext} from "react";
 import {AuthContext} from "@/utils/AuthProvider.jsx";
 import {AlertContext} from "@/utils/AlertProvider.jsx";
+import {useNavigate} from "react-router-dom";
+
 
 
 export function ViewDetails(props) {
+    const navigate = useNavigate();
     const {showAlert} = useContext(AlertContext);
     const {joinEvent} = useContext(EventContext);
     const { user } = useContext(AuthContext);
@@ -100,8 +103,14 @@ export function ViewDetails(props) {
                             onClick={() => {
                                 joinEvent(props.event._id); // gestisce sia join che leave
                                 props.onHide();
-                                showAlert("Iscritto con successo all'evento!", "success");
-                            }}
+                                if(!user){
+                                    showAlert("Devi essere loggato per partecipare ad un evento!", "warning");
+                                    navigate("/signin");
+                                } else {
+                                    showAlert("Iscritto con successo all'evento!MHAAAAAAAAAAAAAANZ", "success");
+                                }
+                            }
+                            }
                         >
                             Join Event
                         </Button>
