@@ -31,11 +31,11 @@
                             {props.event.category}
                         </span>
 
-                            <span className={`d-flex align-items-center gap-1 ${isOnline(props.event.online)
+                            <span className={`d-flex align-items-center gap-1 ${isOnline(props.event.isOnline)
                                 ?'text-info fs-6'
                                 :'text-white'
                             }`}>
-                                <Globe size={15}  className={`${isOnline(props.event.online)
+                                <Globe size={15}  className={`${isOnline(props.event.isOnline)
                                     ?'text-info'
                                     :'text-white'
                                 }`}/>

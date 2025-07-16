@@ -22,7 +22,7 @@ function CreateEvent () {
         location: '',
         max: '',
         category: '',
-        isOnline: false
+        isOnline: true
     });
 
     const handleInputChange = (field, value) => {

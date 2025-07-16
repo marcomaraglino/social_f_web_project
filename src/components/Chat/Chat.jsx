@@ -15,7 +15,7 @@ function Chat({ onLogout }) {
 
     async function refreshAccessToken() {
         try {
-            const response = await fetch('http://localhost:3000/api/auth/refresh-token', {
+            const response = await fetch('http://localhost:5030/api/auth/refresh-token', {
                 method: 'POST',
                 credentials: 'include',
             });
@@ -53,7 +53,7 @@ function Chat({ onLogout }) {
             return;
         }
 
-        socket.current = io('http://localhost:3000', {
+        socket.current = io('http://localhost:4000', {
             auth: { token },
             autoConnect: false,
         });
