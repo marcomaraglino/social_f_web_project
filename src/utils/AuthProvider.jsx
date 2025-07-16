@@ -122,7 +122,7 @@ export const AuthProvider = ({ children }) => {
         };
 
         fetchUser();
-    }, );
+    }, []);
 
 
     return (
