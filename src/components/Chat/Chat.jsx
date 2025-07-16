@@ -26,7 +26,7 @@ function Chat() {
 
         socket.current = io(import.meta.env.VITE_API_BACK_END_URL || 'http://localhost:3000', {
             auth: { token },
-            transports: ['polling'],
+            transports: ['websocket'],
             autoConnect: false,
         });
 
