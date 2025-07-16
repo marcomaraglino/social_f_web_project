@@ -58,30 +58,30 @@ export const EventProvider = ({children}) => {
     }
 
     const joinEvent = async (eventId) => {
-        if (!eventId) {
-            console.error("ID evento mancante in handleJoin!");
-            setError("ID evento non trovato.");
-            return;
-        }
-        fetchWithAuth(import.meta.env.VITE_API_BASE_URL + '/events/' + eventId + '/subscribe',{
-            method: 'POST',
+        if (!eventId) return;
 
-        })
-            .then((res)=>{
-                if(!res.ok) throw new Error("Errore nella risposta");
-                return res.json();
-            })
-            .then((data)=>{
-                setEvents(prevEvents =>
-                    prevEvents.map(event =>
-                        event._id === eventId ? {...event, subscribe: data.subscribe} : event
-                    )
-                );
-            })
-            .catch((err)=>{
-                console.error('Errore nel fetch', err);
-                setError("Errore nell'iscrizione all'evento");
-            })
+        try {
+            const res = await fetchWithAuth(`${import.meta.env.VITE_API_BASE_URL}/events/${eventId}/subscribe`, {
+                method: 'POST'
+            });
+
+            if (!res.ok) throw new Error('Errore nella risposta');
+
+            const data = await res.json();
+            const updatedEvent = data.post;
+
+            // ✅ aggiorna lo stato globale degli eventi
+            setEvents(prevEvents =>
+                prevEvents.map(event =>
+                    event._id === updatedEvent._id ? updatedEvent : event
+                )
+            );
+
+            return updatedEvent;
+
+        } catch (err) {
+            console.error("Errore nel fetch", err);
+        }
     }
 
     const getEventById = (eventId) => {
