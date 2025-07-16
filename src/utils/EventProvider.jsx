@@ -27,6 +27,26 @@ export const EventProvider = ({children}) => {
             })
     }, []);
 
+    const deleteEvent = async (eventId) => {
+        if (!eventId) return false;
+        try {
+            const res = await fetchWithAuth(`${import.meta.env.VITE_API_BASE_URL}/events/${eventId}`, {
+                method: 'DELETE'
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data?.message || "Errore nella cancellazione dell'evento");
+            }
+            // Rimuovi evento da stato
+            setEvents(prev => prev.filter(event => event._id !== eventId));
+            return true;
+        } catch (err) {
+            console.error('Errore nel cancellare evento:', err);
+            setError("Errore nella cancellazione dell'evento");
+            return false;
+        }
+    };
+
     const createEvent = async (eventData) => {
         try {
             const res = await fetchWithAuth(import.meta.env.VITE_API_BASE_URL + '/events', {
@@ -123,7 +143,7 @@ export const EventProvider = ({children}) => {
     }
 
     return (
-        <EventContext.Provider value={{events, setEvents, error, setError, joinEvent, getEventById, updateEvent, createEvent}}>
+        <EventContext.Provider value={{events, setEvents, error, setError, joinEvent, getEventById, updateEvent, createEvent, deleteEvent}}>
             {children}
         </EventContext.Provider>
     )

@@ -10,7 +10,7 @@ export function FeedPage(){
 
     const {events, error} = useContext(EventContext);
     const [selectedCategory, setSelectedCategory] = useState("All");
-    const categories =['All', 'Sport', 'Gaming', 'Tech', 'Social' ];
+    const categories =['All', 'Sports', 'Gaming', 'Tech', 'Social' ];
     const eventiFiltrati= selectedCategory==='All'
     ? events : events.filter((event)=>event.category === selectedCategory)
     return(

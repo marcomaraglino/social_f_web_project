@@ -57,7 +57,7 @@
                         </div>
                         <div className={'d-flex gap-2'}>
                             <div className={'d-flex gap-2'}>
-                                 {isOnline(props.event.online)
+                                 {isOnline(props.event.isOnline)
                                 ?(<Globe size={20} color='grey'/>)
                                 :(<MapPin size={20} color='grey' />)}
                             </div>

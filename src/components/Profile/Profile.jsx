@@ -3,10 +3,12 @@ import {X, Trash, PenLine} from 'lucide-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {AuthContext} from "@/utils/AuthProvider.jsx";
 import {UpdateEvent} from "../UpdateEvent/UpdateEvent.jsx"
+import {EventContext} from "@/utils/EventProvider.jsx";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState('joined');
-    const { user, fetchWithAuth, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    const { deleteEvent, joinEvent } = useContext(EventContext);
     const [modalShow, setModalShow] = useState(false);
     const [eventId, setEventId] = useState(null);
 
@@ -14,25 +16,12 @@ const UserProfile = () => {
     const joinedEvents = user?.joinedEvents ?? [];
 
     const handleRemoveEvent = (eventId) => {
-        // Logic to remove event from user's created events
-        fetchWithAuth(import.meta.env.VITE_API_BASE_URL +`/events/${eventId}`, {
-            method: 'DELETE'
-        })
-            .then(response => {
-                if (response.ok) {
-                    // Update state or refetch events
-                    console.log('Event removed successfully');
-                    setUser(prevUser => ({
-                        ...prevUser,
-                        createdEvents: prevUser.createdEvents.filter(event => event._id !== eventId),
-                        joinedEvents: prevUser.joinedEvents.filter(event => event._id !== eventId)
-                    }));
-                } else {
-                    console.error('Failed to remove event');
-                }
-            })
-            .catch(error => console.error('Error removing event:', error));
-    }
+        if (activeTab === 'created') {
+            deleteEvent(eventId);
+        } else {
+            joinEvent(eventId);
+        }
+    };
 
     return (
         <div className="container my-4">
