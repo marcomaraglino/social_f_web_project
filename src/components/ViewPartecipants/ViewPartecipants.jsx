@@ -32,15 +32,15 @@ export function ViewPartecipants(props) {
 
             </div>
             <div className="d-flex justify-content-between p-3">
-                    <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.category)}`}>
-                        {props.category}
+                    <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.event.category)}`}>
+                        {props.event.category}
                     </span>
 
-                <span className={`d-flex align-items-center gap-1 ${isOnline(props.online)
+                <span className={`d-flex align-items-center gap-1 ${isOnline(props.event.online)
                     ? 'text-info fs-6'
                     : 'text-white'
                 }`}>
-                        <Globe size={15} className={`${isOnline(props.online)
+                        <Globe size={15} className={`${isOnline(props.event.online)
                             ? 'text-info'
                             : 'text-white'
                         }`} />

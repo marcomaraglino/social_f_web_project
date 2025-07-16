@@ -2,8 +2,12 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './ViewDetails.css'
 import {Calendar, Globe, MapPin, Users} from "lucide-react";
+import {EventContext, EventProvider} from "@/utils/EventProvider.jsx";
+import {useContext} from "react";
+
 
 export function ViewDetails(props) {
+    const {joinEvent} = useContext(EventContext);
     const isOnline = (online) => online === true;
     const getActivityClass = (activity) => {
         switch (activity) {
@@ -28,15 +32,15 @@ export function ViewDetails(props) {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered>
                 <div className="d-flex justify-content-between p-3">
-                    <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.category)}`}>
-                        {props.category}
+                    <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.event.category)}`}>
+                        {props.event.category}
                     </span>
 
-                    <span className={`d-flex align-items-center gap-1 ${isOnline(props.online)
+                    <span className={`d-flex align-items-center gap-1 ${isOnline(props.event.online)
                         ? 'text-info fs-6'
                         : 'text-white'
                     }`}>
-                            <Globe size={15} className={`${isOnline(props.online)
+                            <Globe size={15} className={`${isOnline(props.event.online)
                                 ? 'text-info'
                                 : 'text-white'
                             }`}/>
@@ -44,15 +48,15 @@ export function ViewDetails(props) {
                         </span>
                 </div>
                 <Modal.Title className=' p-3  fw-bold'>
-                    {props.title}
+                    {props.event.title}
                 </Modal.Title>
                 <Modal.Body>
 
-                    <p>{props.description}</p>
+                    <p>{props.event.description}</p>
                     <div className='otherInfo'>
                         <div className={'d-flex gap-2'}>
                             <Calendar size={20} color='#7a7a7a'/>
-                            <p>{new Date(props.date).toLocaleDateString('it-IT', {
+                            <p>{new Date(props.event.date).toLocaleDateString('it-IT', {
                                 day: '2-digit',
                                 month: '2-digit',
                                 year: 'numeric',
@@ -62,26 +66,26 @@ export function ViewDetails(props) {
                         </div>
                         <div className={'d-flex gap-2'}>
                             <div className={'d-flex gap-2'}>
-                                {isOnline(props.online)
+                                {isOnline(props.event.online)
                                     ? (<Globe size={20} color='grey'/>)
                                     : (<MapPin size={20} color='grey'/>)}
                             </div>
-                            <p>{props.location}</p>
+                            <p>{props.event.location}</p>
                         </div>
                         <div className={'d-flex gap-2'}>
                             <Users size={20} color='#7a7a7a'/>
-                            <p>{props.subscribe.length}/{props.max}</p>
+                            <p>{props.event.subscribe.length}/{props.event.max}</p>
                         </div>
                     </div>
                     <div className='statsPartecipanti'>
-                        <div className='fillStats' style={{width: `${(props.subscribe.length/props.max)*100}%`}}></div>
+                        <div className='fillStats' style={{width: `${(props.event.subscribe.length/props.event.max)*100}%`}}></div>
                     </div>
                     <div className='d-flex justify-content-center gap-3 mt-3'>
                         <Button className='btn btn-gradient w-50 py-3 button-modal fw-bold ' onClick={props.onShowPartecipants}>
                             Vedi Partecipanti
                         </Button>
                         <Button className='btn btn-gradient w-50 py-3 button-modal fw-bold' onClick={() => {
-                            handleJoin();
+                            joinEvent(props.event._id)
                             props.onHide();
                         }}>
                             Join Event

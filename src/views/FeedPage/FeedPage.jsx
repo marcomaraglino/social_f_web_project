@@ -43,17 +43,8 @@ export function FeedPage(){
                     {eventiFiltrati.map((event)=>(
 
                             <EventCard
+                                       event={event}
                                        key={event._id}
-                                       id={event._id}
-                                       category={event.category}
-                                       title={event.title}
-                                       online={event.online}
-                                       description={event.description}
-                                       date={event.date}
-                                       location={event.location}
-                                       maxLength = {event.maxLength}
-                                       max={event.max}
-                                       subscribe={event.subscribe}
                             />
 
                     ))

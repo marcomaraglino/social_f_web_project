@@ -27,27 +27,27 @@
         return(
                 <div className='text-start p-4 d-flex flex-column rounded-3 gap-2 shadow'>
                     <div className="d-flex justify-content-between">
-                        <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.category)}`}>
-                            {props.category}
+                        <span className={`badge rounded-pill px-3 py-2 ${getActivityClass(props.event.category)}`}>
+                            {props.event.category}
                         </span>
 
-                            <span className={`d-flex align-items-center gap-1 ${isOnline(props.online)
+                            <span className={`d-flex align-items-center gap-1 ${isOnline(props.event.online)
                                 ?'text-info fs-6'
                                 :'text-white'
                             }`}>
-                                <Globe size={15}  className={`${isOnline(props.online)
+                                <Globe size={15}  className={`${isOnline(props.event.online)
                                     ?'text-info'
                                     :'text-white'
                                 }`}/>
                                 Online
                             </span>
                     </div>
-                    <h2 className="text-start fw-bold">{props.title}</h2>
-                    <p>{props.description}</p>
+                    <h2 className="text-start fw-bold">{props.event.title}</h2>
+                    <p>{props.event.description}</p>
                     <div className=''>
                         <div className={'d-flex gap-2'}>
                             <Calendar size={20} color='#7a7a7a' />
-                            <p>{new Date(props.date).toLocaleDateString('it-IT', {
+                            <p>{new Date(props.event.date).toLocaleDateString('it-IT', {
                                 day: '2-digit',
                                 month: '2-digit',
                                 year: 'numeric',
@@ -57,19 +57,19 @@
                         </div>
                         <div className={'d-flex gap-2'}>
                             <div className={'d-flex gap-2'}>
-                                 {isOnline(props.online)
+                                 {isOnline(props.event.online)
                                 ?(<Globe size={20} color='grey'/>)
                                 :(<MapPin size={20} color='grey' />)}
                             </div>
-                            <p>{props.location}</p>
+                            <p>{props.event.location}</p>
                         </div>
                         <div className={'d-flex gap-2'}>
                             <Users size={20} color='#7a7a7a' />
-                            <p>{props.subscribe.length}/{props.max}</p>
+                            <p>{props.event.subscribe.length}/{props.event.max}</p>
                         </div>
                     </div>
                     <div className='statsPartecipanti'>
-                        <div className='fillStats' style={{width: `${(props.subscribe.length/props.max)*100}%`}}></div>
+                        <div className='fillStats' style={{width: `${(props.event.subscribe.length/props.event.max)*100}%`}}></div>
                     </div>
                         <button className='btn btn-gradient details w-100 py-3' onClick={()=>{setModalShow(true)
                         console.log(props.id)}}>
@@ -80,25 +80,14 @@
                         onShowPartecipants={() =>{
                             setModalShow(false);
                             setShowPartecipants(true)}}
-                        title={props.title}
-                        category={props.category}
-                        key={props.id}
-                        id={props.id}
-                        description={props.description}
-                        max={props.max}
-                        date={props.date}
-                        location={props.location}
-                        subscribe={props.subscribe}
-                        online={props.online}
+                        event={props.event}
 
                     />
 
                         <ViewPartecipants
                             show={showPartecipants}
                             onHide={() => setShowPartecipants(false)}
-                            category={props.category}
-                            online={props.online}
-                            subscribe={props.subscribe}
+                            event={props.event}
                         />
                 </div>
 
