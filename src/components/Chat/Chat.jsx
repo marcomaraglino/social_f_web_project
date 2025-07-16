@@ -1,47 +1,18 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { io } from 'socket.io-client';
 import { AuthContext } from '@/utils/AuthProvider';
+import { refreshAccessToken } from '@/utils/RefreshToken';
 import './Chat.css';
 
-function Chat({ onLogout }) {
+function Chat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [clientsTotal, setClientsTotal] = useState(0);
     const messagesEndRef = useRef(null);
-    const { user, setUser } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const socket = useRef(null);
     const [messageQueue, setMessageQueue] = useState([]);
     const [hasScrolled, setHasScrolled] = useState(false);
-
-    async function refreshAccessToken() {
-        try {
-            const response = await fetch('http://localhost:5030/api/auth/refresh-token', {
-                method: 'POST',
-                credentials: 'include',
-            });
-            if (!response.ok) {
-                throw new Error('Impossibile rinnovare il token');
-            }
-            const data = await response.json();
-            localStorage.setItem('accessToken', data.accessToken);
-            return data.accessToken;
-        } catch (error) {
-            console.error('Refresh token fallito:', error);
-            handleLogout();
-            return null;
-        }
-    }
-
-
-    const handleLogout = () => {
-        localStorage.removeItem('accessToken');
-        setUser(null);
-        if (socket.current) {
-            socket.current.disconnect();
-            socket.current.off();
-        }
-        if (onLogout) onLogout();
-    };
 
     useEffect(() => {
         if (!user) return;
@@ -49,19 +20,19 @@ function Chat({ onLogout }) {
         let isMounted = true;
         const token = localStorage.getItem('accessToken');
         if (!token) {
-            handleLogout();
+            logout(false);
             return;
         }
 
-        socket.current = io('http://localhost:4000', {
+        socket.current = io(import.meta.env.VITE_API_BACK_END_URL || 'http://localhost:3000', {
             auth: { token },
+            transports: ['websocket', 'polling'],
             autoConnect: false,
         });
 
         socket.current.on('connect', () => {
             console.log('Socket connesso');
             socket.current.emit('register', user.username);
-
 
             if (messageQueue.length > 0) {
                 messageQueue.forEach(msg => {
@@ -89,7 +60,6 @@ function Chat({ onLogout }) {
             });
         });
 
-
         socket.current.on('connect_error', async (err) => {
             console.log('Errore connessione socket:', err.message);
             if (
@@ -98,13 +68,18 @@ function Chat({ onLogout }) {
                 err.message === 'Token mancante'
             ) {
                 console.log('Token scaduto o non valido, provo a rinnovare...');
-                const newToken = await refreshAccessToken();
-                if (newToken) {
-                    socket.current.auth.token = newToken;
-                    socket.current.connect();
-                } else {
-                    console.log('Non è stato possibile rinnovare il token, eseguo logout.');
-                    handleLogout();
+                try {
+                    const newToken = await refreshAccessToken();
+                    if (newToken) {
+                        socket.current.auth.token = newToken;
+                        socket.current.connect();
+                    } else {
+                        console.log('Non è stato possibile rinnovare il token, eseguo logout.');
+                        logout(false);
+                    }
+                } catch (error) {
+                    console.error("Errore nel refresh token", error);
+                    logout(false);
                 }
             }
         });
@@ -120,14 +95,12 @@ function Chat({ onLogout }) {
         };
     }, [user]);
 
-
     useEffect(() => {
         if (messages.length > 0 && !hasScrolled) {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
             setHasScrolled(true);
         }
     }, [messages, hasScrolled]);
-
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -184,6 +157,7 @@ function Chat({ onLogout }) {
                         <div ref={messagesEndRef} />
                     </ul>
                 </div>
+
                 <div className='d-flex justify-content-center align-items-center px-5'>
                     <form className="chat-form" onSubmit={sendMessage}>
                         <div className="input-wrapper">
