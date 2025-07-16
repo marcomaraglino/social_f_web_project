@@ -2,9 +2,6 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {AuthContext} from "@/utils/AuthProvider.jsx";
 
 
-
-
-
 export const EventContext = createContext();
 
 export const EventProvider = ({children}) => {
@@ -21,7 +18,7 @@ export const EventProvider = ({children}) => {
             .then((data) => {
                 setEvents(data.events);
             })
-            .catch((err) => {
+               .catch((err) => {
                 console.error('Errore nel fetch', err);
                 setError("Errore nel caricamento degli eventi");
             })

@@ -5,9 +5,11 @@ import {Calendar, Globe, MapPin, Users} from "lucide-react";
 import {EventContext, EventProvider} from "@/utils/EventProvider.jsx";
 import {useContext} from "react";
 import {AuthContext} from "@/utils/AuthProvider.jsx";
+import {AlertContext} from "@/utils/AlertProvider.jsx";
 
 
 export function ViewDetails(props) {
+    const {showAlert} = useContext(AlertContext);
     const {joinEvent} = useContext(EventContext);
     const { user } = useContext(AuthContext);
 
@@ -92,15 +94,29 @@ export function ViewDetails(props) {
                         <Button className='btn btn-gradient w-50 py-3 button-modal fw-bold ' onClick={props.onShowPartecipants}>
                             Vedi Partecipanti
                         </Button>
+                        {!isUserSubscribed && (
                         <Button
                             className="btn btn-gradient w-50 py-3 button-modal fw-bold"
                             onClick={() => {
                                 joinEvent(props.event._id); // gestisce sia join che leave
                                 props.onHide();
+                                showAlert("Iscritto con successo all'evento!", "success");
                             }}
                         >
-                            {isUserSubscribed ? "Leave Event" : "Join Event"}
+                            Join Event
                         </Button>
+                        )}
+                        {isUserSubscribed && (
+                            <Button
+                                className={"w-50 py-3 btn-gradient fw-bold button-modal"}
+                                onClick={() => {
+                                    joinEvent(props.event._id); // Effettua la leave (stesso endpoint toggle)
+                                    props.onHide();
+                                    showAlert("Disiscritto con successo dall'evento!", "danger");
+                                }}>
+                                    Laeve Event
+                            </Button>
+                        )}
                     </div>
 
                 </Modal.Body>

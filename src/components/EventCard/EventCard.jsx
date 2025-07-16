@@ -1,12 +1,10 @@
     import './EventCard.css'
     import {Link, Route} from 'react-router-dom';
-    import React, {useContext} from 'react';
     import {ViewDetails} from '../../components/ViewDetails/ViewDetails.jsx';
     import {ViewPartecipants} from '../../components/ViewPartecipants/ViewPartecipants.jsx';
     import {Calendar, Users, MapPin, Globe} from 'lucide-react'
     import {AuthContext} from "@/utils/AuthProvider.jsx";
-
-
+    import {useState} from "react";
 
 
     export function EventCard(props){
@@ -20,8 +18,8 @@
             }
         }
         const isOnline = (online) => online === true;
-        const [modalShow, setModalShow] = React.useState(false);
-        const [showPartecipants, setShowPartecipants] = React.useState(false);
+        const [modalShow, setModalShow] = useState(false);
+        const [showPartecipants, setShowPartecipants] = useState(false);
 
 
         return(

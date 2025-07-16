@@ -7,9 +7,8 @@ import {AlertContext} from "@/utils/AlertProvider.jsx";
 import {EventContext} from "@/utils/EventProvider.jsx";
 
 function CreateEvent () {
-    const {createEvent} = useContext(EventContext); // ✅ usa la funzione creata
+    const {createEvent} = useContext(EventContext);
     const {showAlert} = useContext(AlertContext);
-
     const categories = ['Sports', 'Gaming', 'Tech', 'Social', 'Food', 'Music'];
 
 
@@ -33,7 +32,7 @@ function CreateEvent () {
         e.preventDefault();
 
         try {
-            const createdEvent = await createEvent(formData); // ✅ ora centralizzato
+            const createdEvent = await createEvent(formData);
             showAlert("Event created successfully!");
             navigate('/');
         } catch (err) {
