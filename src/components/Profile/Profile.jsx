@@ -7,7 +7,7 @@ import {EventContext} from "@/utils/EventProvider.jsx";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState('joined');
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const { deleteEvent, joinEvent } = useContext(EventContext);
     const [modalShow, setModalShow] = useState(false);
     const [eventId, setEventId] = useState(null);
@@ -30,36 +30,10 @@ const UserProfile = () => {
                     <div className="px-1 justify-content-center d-flex flex-column">
                         <h1 className="fs-4 text-primary text-start fw-bold mb-0">{user.username}</h1>
                         <p className="m-0 text-secondary">{user.email}</p>
-                        {/*<p className="text-muted small mb-2">
-                            *Joined {subscriptionDate} • {joinedEvents.length} events joined • {createdEvents.length} events created
-                        </p>*/}
-
-                        {/* Interests badges
-                        <div className="d-flex gap-2 flex-wrap small mb-2">
-                            {interests.map((interest, i) => (
-                                <span key={i} className="badge bg-light text-dark">{interest}</span>
-                            ))}
-                        </div>
-                        */}
-
-                        {/* Add new interest input
-                        <div className="d-flex gap-2">
-                            <input
-                                type="text"
-                                className="form-control form-control-sm"
-                                placeholder="Add interest"
-                                value={newInterest}
-                                onChange={(e) => setNewInterest(e.target.value)}
-                            />
-                            <button className="btn btn-sm btn-outline-primary" onClick={handleAddInterest}>
-                                Add
-                            </button>
-                        </div>
-                        */}
                     </div>
                 </div>
-                <button className="btn btn-primary">
-                    Edit Profile
+                <button onClick={() => logout(false)} className="btn btn-primary">
+                    Logout
                 </button>
             </div>
 

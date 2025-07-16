@@ -1,14 +1,20 @@
 import './Login.css'
 import {Link, useNavigate} from 'react-router-dom'
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "@/utils/AuthProvider.jsx";
 
     function Login(){
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [error, setError] = useState(null);
-        const { login } = useContext(AuthContext);
+        const { login, user } = useContext(AuthContext);
         const navigate = useNavigate();
+
+        useEffect(() => {
+            if(user){
+                navigate('/');
+            }
+        })
 
         const handleSubmit = async (e) => {
             e.preventDefault();
