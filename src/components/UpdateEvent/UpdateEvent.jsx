@@ -31,7 +31,6 @@ export function UpdateEvent(props) {
                     title: event.title || '',
                     description: event.description || '',
                     category: event.category || '',
-                    date: event.date ? event.date.slice(0, 16) : '', // per datetime-local
                     max: event.max || '',
                     location: event.location || ''
                 });
