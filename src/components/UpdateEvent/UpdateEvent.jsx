@@ -48,20 +48,20 @@ export function UpdateEvent(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const dataToSend = {
-            ...eventData,
-            date: new Date(eventData.date).toISOString() // converte nel formato che serve per la richiesta
-        };
-
         try {
-            await updateEvent(props.eventId, dataToSend);
+            await updateEvent(props.eventId, eventData)
             console.log("submitted");
-            console.log(dataToSend);
+            console.log(eventData);
             window.location.reload();
-            props.onHide(); // chiude modal
+            props.onHide(); // Close the modal after submission
         } catch (error) {
             console.error("Error updating event:", error);
+            // Here you can handle the error, e.g., show an alert or message
         }
+        //refresh the current page
+
+
+        // Here you can handle the form submission, e.g., send data to the server
     };
 
     return (
@@ -115,10 +115,10 @@ export function UpdateEvent(props) {
                         </Form.Select>
                     </Form.Group>
                     <div className='d-flex '>
-                        <Form.Group className="mb-3 w-100" controlId="formBasicDate">
+                        {/*<Form.Group className="mb-3 w-100" controlId="formBasicDate">
                             <Form.Label>Date</Form.Label>
                             <Form.Control onChange={(e) => handleInputChange('date', e.target.value)} value={eventData.date} type="datetime-local" />
-                        </Form.Group>
+                        </Form.Group>*/}
                     </div>
                     <Form.Group className="mb-3" controlId="formBasicLocation">
                         <Form.Label>Location</Form.Label>
