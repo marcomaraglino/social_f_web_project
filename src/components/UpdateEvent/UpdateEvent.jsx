@@ -16,7 +16,6 @@ export function UpdateEvent(props) {
         title: '',
         description: '',
         category: '',
-        date: '',
         max: '',
         location: ''
     })
@@ -116,7 +115,7 @@ export function UpdateEvent(props) {
                     <div className='d-flex '>
                         <Form.Group className="mb-3 w-100" controlId="formBasicDate">
                             <Form.Label>Date</Form.Label>
-                            <Form.Control onChange={(e) => handleInputChange('date', e.target.value)} value={eventData.date} type="datetime-local" />
+                            <Form.Control value={eventData.date} type="datetime-local" />
                         </Form.Group>
                     </div>
                     <Form.Group className="mb-3" controlId="formBasicLocation">
