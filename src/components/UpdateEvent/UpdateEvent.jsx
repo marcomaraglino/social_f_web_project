@@ -9,6 +9,14 @@ export function UpdateEvent(props) {
 
     const categories = ['Sports', 'Gaming', 'Tech', 'Social', 'Food', 'Music'];
 
+    function toLocalDateTimeString(utcDateStr) {
+        const date = new Date(utcDateStr);
+        const localISOTime = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+            .toISOString()
+            .slice(0, 16);
+        return localISOTime;
+    }
+
 
     const {updateEvent, getEventById, events, setEvents} = useContext(EventContext);
 
@@ -31,7 +39,7 @@ export function UpdateEvent(props) {
                     title: event.title || '',
                     description: event.description || '',
                     category: event.category || '',
-                    date: event.date ? event.date.slice(0, 16) : '', // per datetime-local
+                    date: event.date ? toLocalDateTimeString(event.date) : '', // per datetime-local
                     max: event.max || '',
                     location: event.location || ''
                 });
@@ -115,10 +123,10 @@ export function UpdateEvent(props) {
                         </Form.Select>
                     </Form.Group>
                     <div className='d-flex '>
-                        {/*<Form.Group className="mb-3 w-100" controlId="formBasicDate">
+                        <Form.Group className="mb-3 w-100" controlId="formBasicDate">
                             <Form.Label>Date</Form.Label>
                             <Form.Control onChange={(e) => handleInputChange('date', e.target.value)} value={eventData.date} type="datetime-local" />
-                        </Form.Group>*/}
+                        </Form.Group>
                     </div>
                     <Form.Group className="mb-3" controlId="formBasicLocation">
                         <Form.Label>Location</Form.Label>

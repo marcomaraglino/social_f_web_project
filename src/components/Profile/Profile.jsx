@@ -21,6 +21,7 @@ const UserProfile = () => {
         } else {
             joinEvent(eventId);
         }
+        window.location.reload();
     };
 
     return (
