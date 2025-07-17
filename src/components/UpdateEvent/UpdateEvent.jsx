@@ -16,6 +16,7 @@ export function UpdateEvent(props) {
         title: '',
         description: '',
         category: '',
+        date: '',
         max: '',
         location: ''
     })
@@ -30,6 +31,7 @@ export function UpdateEvent(props) {
                     title: event.title || '',
                     description: event.description || '',
                     category: event.category || '',
+                    date: event.date ? event.date.slice(0, 16) : '', // per datetime-local
                     max: event.max || '',
                     location: event.location || ''
                 });
@@ -46,20 +48,20 @@ export function UpdateEvent(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        const dataToSend = {
+            ...eventData,
+            date: new Date(eventData.date).toISOString() // converte nel formato che serve per la richiesta
+        };
+
         try {
-            await updateEvent(props.eventId, eventData)
+            await updateEvent(props.eventId, dataToSend);
             console.log("submitted");
-            console.log(eventData);
+            console.log(dataToSend);
             window.location.reload();
-            props.onHide(); // Close the modal after submission
+            props.onHide(); // chiude modal
         } catch (error) {
             console.error("Error updating event:", error);
-            // Here you can handle the error, e.g., show an alert or message
         }
-        //refresh the current page
-
-
-        // Here you can handle the form submission, e.g., send data to the server
     };
 
     return (
@@ -115,7 +117,7 @@ export function UpdateEvent(props) {
                     <div className='d-flex '>
                         <Form.Group className="mb-3 w-100" controlId="formBasicDate">
                             <Form.Label>Date</Form.Label>
-                            <Form.Control value={eventData.date} type="datetime-local" />
+                            <Form.Control onChange={(e) => handleInputChange('date', e.target.value)} value={eventData.date} type="datetime-local" />
                         </Form.Group>
                     </div>
                     <Form.Group className="mb-3" controlId="formBasicLocation">
